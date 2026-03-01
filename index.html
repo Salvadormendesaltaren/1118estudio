@@ -256,6 +256,59 @@
         .project-nav-label { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,0.6); font-weight: 500; margin-bottom: 8px; }
         .project-nav-card-overlay h3 { font-family: var(--font-serif); font-size: 24px; font-weight: 400; color: var(--white); }
 
+        /* WIZARD — Imagina tu proyecto */
+        .wizard-container { min-height: 100vh; background: var(--black); color: var(--white); position: relative; padding-top: 80px; }
+        .wizard-progress { position: absolute; top: 0; left: 0; height: 3px; background: var(--accent); z-index: 10; transition: width 0.4s ease; }
+        .wizard-nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 48px; }
+        .wizard-back { background: none; border: none; color: var(--soft-on-dark); font-family: var(--font-sans); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: color 0.3s; display: flex; align-items: center; gap: 8px; }
+        .wizard-back:hover { color: var(--white); }
+        .wizard-back svg { width: 16px; height: 16px; }
+        .wizard-back.hidden { visibility: hidden; }
+        .wizard-counter { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--soft-on-dark); }
+        .wizard-step { display: none; flex-direction: column; align-items: center; padding: 40px 48px 64px; opacity: 0; transform: translateY(20px); transition: opacity 0.35s ease, transform 0.35s ease; }
+        .wizard-step.active { display: flex; }
+        .wizard-step.active.show { opacity: 1; transform: translateY(0); }
+        .wizard-step-title { font-family: var(--font-serif); font-size: clamp(24px,3.5vw,42px); font-weight: 400; color: var(--white); text-align: center; margin-bottom: 12px; }
+        .wizard-step-subtitle { font-size: 14px; color: var(--soft-on-dark); text-align: center; margin-bottom: 48px; }
+        .wizard-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 900px; width: 100%; }
+        .wizard-card { position: relative; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; border: 2px solid transparent; transition: border-color 0.4s ease; }
+        .wizard-card:hover { border-color: var(--accent); }
+        .wizard-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25,0.1,0.25,1); }
+        .wizard-card:hover img { transform: scale(1.04); }
+        .wizard-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,10,0.8) 0%, rgba(10,10,10,0.1) 60%); display: flex; align-items: flex-end; padding: 24px; }
+        .wizard-card-label { font-family: var(--font-serif); font-size: 20px; color: var(--white); }
+        .wizard-pill-group { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
+        .wizard-pill { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); color: var(--soft-on-dark); font-family: var(--font-sans); font-size: 13px; padding: 10px 20px; cursor: pointer; transition: all 0.3s; }
+        .wizard-pill:hover { border-color: var(--accent); color: var(--white); }
+        .wizard-pill.selected { background: var(--accent); border-color: var(--accent); color: var(--white); }
+        .wizard-field-group { max-width: 600px; width: 100%; margin-bottom: 24px; text-align: left; }
+        .wizard-field-label { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--soft-on-dark); font-weight: 500; margin-bottom: 12px; }
+        .wizard-input { width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: var(--white); font-family: var(--font-sans); font-size: 14px; padding: 14px 16px; outline: none; transition: border-color 0.3s; }
+        .wizard-input::placeholder { color: rgba(255,255,255,0.3); }
+        .wizard-input:focus { border-color: var(--accent); }
+        .wizard-continue { display: inline-block; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: var(--white); font-family: var(--font-sans); font-size: 11px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; padding: 16px 36px; cursor: pointer; transition: all 0.3s; margin-top: 16px; }
+        .wizard-continue:hover { background: var(--white); color: var(--black); }
+        .wizard-summary-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; max-width: 1000px; width: 100%; align-items: start; }
+        .wizard-summary-card { position: relative; overflow: hidden; aspect-ratio: 3/4; display: flex; flex-direction: column; justify-content: flex-end; padding: 32px; }
+        .wizard-summary-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+        .wizard-summary-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.2) 60%); }
+        .wizard-summary-card-content { position: relative; z-index: 2; }
+        .wizard-summary-card-content p { font-size: 13px; color: var(--soft-on-dark); line-height: 1.8; }
+        .wizard-summary-card-content p strong { color: var(--white); font-weight: 500; }
+        .wizard-contact-form { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .wizard-contact-form .full-width { grid-column: span 2; }
+        .wizard-contact-form label { display: block; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--soft-on-dark); font-weight: 500; margin-bottom: 8px; }
+        .wizard-contact-form input, .wizard-contact-form textarea { width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: var(--white); font-family: var(--font-sans); font-size: 14px; padding: 14px 16px; outline: none; transition: border-color 0.3s; }
+        .wizard-contact-form input::placeholder, .wizard-contact-form textarea::placeholder { color: rgba(255,255,255,0.3); }
+        .wizard-contact-form input:focus, .wizard-contact-form textarea:focus { border-color: var(--accent); }
+        .wizard-contact-form textarea { resize: vertical; min-height: 100px; }
+        .wizard-contact-form button { grid-column: span 2; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: var(--white); font-family: var(--font-sans); font-size: 11px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; padding: 16px 36px; cursor: pointer; transition: all 0.3s; }
+        .wizard-contact-form button:hover { background: var(--white); color: var(--black); }
+        .wizard-success-icon { width: 64px; height: 64px; border: 2px solid var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 32px; }
+        .wizard-success-icon svg { width: 28px; height: 28px; stroke: var(--accent); }
+        .hero-cta { display: inline-block; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--white); border: 1px solid rgba(255,255,255,0.3); padding: 14px 36px; text-decoration: none; cursor: pointer; transition: background 0.3s, color 0.3s; font-weight: 500; margin-top: 28px; opacity: 0; transform: translateY(15px); animation: fadeUp 1s ease 1.6s forwards; }
+        .hero-cta:hover { background: var(--white); color: var(--black); }
+
         /* ANIMATIONS */
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeIn { to { opacity: 1; } }
@@ -270,6 +323,9 @@
             .blog-grid { grid-template-columns: repeat(2,1fr); }
             .project-data { grid-template-columns: repeat(3, 1fr); }
             .project-tech-grid { grid-template-columns: 1fr; gap: 40px; }
+            .wizard-summary-layout { grid-template-columns: 1fr; }
+            .wizard-nav { padding: 16px 32px; }
+            .wizard-step { padding: 40px 32px 64px; }
         }
         @media (max-width: 768px) {
             .header-inner { padding: 18px 24px; }
@@ -307,6 +363,15 @@
             .comparison-table td, .comparison-table th { padding: 10px 8px; font-size: 13px; }
             footer { padding: 24px; }
             .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+            .wizard-cards { grid-template-columns: 1fr; }
+            .wizard-card { aspect-ratio: 16/9; }
+            .wizard-step { padding: 32px 24px 48px; }
+            .wizard-nav { padding: 16px 24px; }
+            .wizard-summary-layout { grid-template-columns: 1fr; }
+            .wizard-summary-card { aspect-ratio: 16/9; }
+            .wizard-contact-form { grid-template-columns: 1fr; }
+            .wizard-contact-form .full-width { grid-column: span 1; }
+            .wizard-contact-form button { grid-column: span 1; }
         }
     </style>
 </head>
@@ -333,7 +398,7 @@
         <video class="hero-video" autoplay muted loop playsinline>
             <source src="https://assets.mixkit.co/videos/24945/24945-720.mp4" type="video/mp4">
         </video>
-        <div class="hero-content"><h1>Arquitectura<br><em>esencial</em></h1><p class="hero-subtitle">Proyectos modulares a tu medida</p><div class="hero-line"></div></div>
+        <div class="hero-content"><h1>Arquitectura<br><em>esencial</em></h1><p class="hero-subtitle">Proyectos modulares a tu medida</p><div class="hero-line"></div><a class="hero-cta" data-nav="wizard">Imagina tu proyecto →</a></div>
         <div class="scroll-indicator"><span>Scroll</span><div class="scroll-line"></div></div>
     </section>
     <section class="section" id="proyectos">
@@ -406,6 +471,8 @@
                     <div class="divider-line" style="background:rgba(255,255,255,0.15)"></div>
                     <p><a href="mailto:info@1118estudio.com">info@1118estudio.com</a></p>
                     <p style="margin-top:12px"><a href="https://www.instagram.com/1118estudio/" target="_blank">Instagram</a> · <a href="https://www.1118estudio.com" target="_blank">Web original</a></p>
+                    <div class="divider-line" style="background:rgba(255,255,255,0.15)"></div>
+                    <p><a data-nav="wizard" style="font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);text-decoration:none;font-weight:600;cursor:pointer">Imagina tu proyecto →</a></p>
                 </div>
             </div>
             <form class="contact-form" id="contactForm">
@@ -984,6 +1051,149 @@
     </div>
 </div>
 
+<!-- ═══════════════ WIZARD ═══════════════ -->
+<div class="view" id="v-wizard">
+    <div class="wizard-container">
+        <div class="wizard-progress" id="wizProgress" style="width:20%"></div>
+        <div class="wizard-nav">
+            <button class="wizard-back hidden" id="wizBack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Atrás</button>
+            <span class="wizard-counter" id="wizCounter">Paso 1 de 5</span>
+        </div>
+
+        <!-- Paso 1: Tipo de proyecto -->
+        <div class="wizard-step" id="wizStep1">
+            <h2 class="wizard-step-title">¿Qué quieres crear?</h2>
+            <p class="wizard-step-subtitle">Selecciona el tipo de proyecto que tienes en mente</p>
+            <div class="wizard-cards">
+                <div class="wizard-card" data-wiz-type="Nueva vivienda">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=80" alt="Nueva vivienda">
+                    <div class="wizard-card-overlay"><span class="wizard-card-label">Nueva vivienda</span></div>
+                </div>
+                <div class="wizard-card" data-wiz-type="Reforma integral">
+                    <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=700&q=80" alt="Reforma integral">
+                    <div class="wizard-card-overlay"><span class="wizard-card-label">Reforma integral</span></div>
+                </div>
+                <div class="wizard-card" data-wiz-type="Diseño de interiores">
+                    <img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=700&q=80" alt="Diseño de interiores">
+                    <div class="wizard-card-overlay"><span class="wizard-card-label">Diseño de interiores</span></div>
+                </div>
+                <div class="wizard-card" data-wiz-type="Local comercial">
+                    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=700&q=80" alt="Local comercial">
+                    <div class="wizard-card-overlay"><span class="wizard-card-label">Local comercial</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paso 2: Estilo -->
+        <div class="wizard-step" id="wizStep2">
+            <h2 class="wizard-step-title">¿Qué estilo te inspira?</h2>
+            <p class="wizard-step-subtitle">Elige la estética que más te representa</p>
+            <div class="wizard-cards">
+                <div class="wizard-card" data-wiz-style="Minimalista" data-wiz-img="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700&q=80">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700&q=80" alt="Minimalista">
+                    <div class="wizard-card-overlay"><span class="wizard-card-label">Minimalista</span></div>
+                </div>
+                <div class="wizard-card" data-wiz-style="Mediterránea" data-wiz-img="https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=700&q=80">
+                    <img src="https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=700&q=80" alt="Mediterránea">
+                    <div class="wizard-card-overlay"><span class="wizard-card-label">Mediterránea</span></div>
+                </div>
+                <div class="wizard-card" data-wiz-style="Rústica contemporánea" data-wiz-img="https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=700&q=80">
+                    <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=700&q=80" alt="Rústica contemporánea">
+                    <div class="wizard-card-overlay"><span class="wizard-card-label">Rústica contemporánea</span></div>
+                </div>
+                <div class="wizard-card" data-wiz-style="Industrial" data-wiz-img="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=700&q=80">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=700&q=80" alt="Industrial">
+                    <div class="wizard-card-overlay"><span class="wizard-card-label">Industrial</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paso 3: Parcela y ubicación -->
+        <div class="wizard-step" id="wizStep3">
+            <h2 class="wizard-step-title">Tu parcela y ubicación</h2>
+            <p class="wizard-step-subtitle">Ayúdanos a entender dónde será tu proyecto</p>
+            <div class="wizard-field-group">
+                <p class="wizard-field-label">¿Tienes parcela?</p>
+                <div class="wizard-pill-group" data-wiz-field="parcela">
+                    <button class="wizard-pill" data-value="Sí">Sí</button>
+                    <button class="wizard-pill" data-value="Estoy buscando">Estoy buscando</button>
+                    <button class="wizard-pill" data-value="No necesito">No necesito</button>
+                </div>
+            </div>
+            <div class="wizard-field-group">
+                <p class="wizard-field-label">Ubicación</p>
+                <div class="wizard-pill-group" data-wiz-field="ubicacion">
+                    <button class="wizard-pill" data-value="Urbano">Urbano</button>
+                    <button class="wizard-pill" data-value="Rural">Rural</button>
+                    <button class="wizard-pill" data-value="Costa">Costa</button>
+                    <button class="wizard-pill" data-value="No lo sé">No lo sé</button>
+                </div>
+            </div>
+            <div class="wizard-field-group">
+                <p class="wizard-field-label">Superficie aproximada (m²)</p>
+                <input class="wizard-input" type="number" id="wizSuperficie" placeholder="Ej: 150 (opcional)">
+            </div>
+            <button class="wizard-continue" id="wizCont3">Continuar →</button>
+        </div>
+
+        <!-- Paso 4: Presupuesto y tiempos -->
+        <div class="wizard-step" id="wizStep4">
+            <h2 class="wizard-step-title">Presupuesto y tiempos</h2>
+            <p class="wizard-step-subtitle">Esto nos ayuda a preparar una propuesta realista</p>
+            <div class="wizard-field-group">
+                <p class="wizard-field-label">Presupuesto estimado</p>
+                <div class="wizard-pill-group" data-wiz-field="presupuesto">
+                    <button class="wizard-pill" data-value="< 150.000 €">&lt; 150k</button>
+                    <button class="wizard-pill" data-value="150.000 – 250.000 €">150 – 250k</button>
+                    <button class="wizard-pill" data-value="250.000 – 400.000 €">250 – 400k</button>
+                    <button class="wizard-pill" data-value="> 400.000 €">&gt; 400k</button>
+                    <button class="wizard-pill" data-value="No lo tengo claro">No lo tengo claro</button>
+                </div>
+            </div>
+            <div class="wizard-field-group">
+                <p class="wizard-field-label">¿Cuándo te gustaría empezar?</p>
+                <div class="wizard-pill-group" data-wiz-field="plazo">
+                    <button class="wizard-pill" data-value="Cuanto antes">Cuanto antes</button>
+                    <button class="wizard-pill" data-value="En 6 meses">En 6 meses</button>
+                    <button class="wizard-pill" data-value="En 1 año">En 1 año</button>
+                    <button class="wizard-pill" data-value="Solo estoy explorando">Solo estoy explorando</button>
+                </div>
+            </div>
+            <button class="wizard-continue" id="wizCont4">Continuar →</button>
+        </div>
+
+        <!-- Paso 5: Resumen + contacto -->
+        <div class="wizard-step" id="wizStep5">
+            <h2 class="wizard-step-title">Cuéntanos sobre ti</h2>
+            <p class="wizard-step-subtitle">Revisa tu proyecto y déjanos tus datos</p>
+            <div class="wizard-summary-layout">
+                <div class="wizard-summary-card" id="wizSummaryCard">
+                    <img id="wizSummaryImg" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700&q=80" alt="Tu estilo">
+                    <div class="wizard-summary-card-overlay"></div>
+                    <div class="wizard-summary-card-content" id="wizSummaryContent"></div>
+                </div>
+                <form class="wizard-contact-form" id="wizForm">
+                    <div><label>Nombre *</label><input type="text" id="wiz-name" required placeholder="Tu nombre"></div>
+                    <div><label>Email *</label><input type="email" id="wiz-email" required placeholder="tu@email.com"></div>
+                    <div><label>Teléfono</label><input type="tel" id="wiz-phone" placeholder="(opcional)"></div>
+                    <div class="full-width"><label>Mensaje</label><textarea id="wiz-msg" placeholder="¿Algo más que quieras contarnos?"></textarea></div>
+                    <button type="submit">Enviar mi proyecto →</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Pantalla de éxito -->
+        <div class="wizard-step" id="wizStepSuccess">
+            <div class="wizard-success-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <h2 class="wizard-step-title">Gracias por compartir tu proyecto</h2>
+            <p style="font-size:14px;color:var(--soft-on-dark);margin-bottom:32px;text-align:center;max-width:480px">Hemos preparado un email con toda la información. Revisaremos tu proyecto y te contactaremos pronto.</p>
+            <a data-nav="home" style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);text-decoration:none;cursor:pointer;transition:color 0.3s">← Volver al inicio</a>
+        </div>
+    </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
     <div class="footer-inner">
@@ -1020,9 +1230,10 @@
                 if(sc) setTimeout(()=>{ const el=document.getElementById(sc); if(el) window.scrollTo({top:el.offsetTop-80, behavior:'smooth'});},100);
             }));
             cur = v;
+            if(v==='wizard') wizReset();
             history.pushState(null,'', v==='home'?'#':'#'+v);
             reObs();
-            const t={home:'1118 Estudio — Arquitectura Modular',blog:'Blog — 1118 Estudio',art1:'¿Qué es una casa modular? — 1118 Estudio',art2:'Modular vs Tradicional — 1118 Estudio',art3:'Personalizar casa modular — 1118 Estudio',proj1:'Casa en el Campo — 1118 Estudio',proj2:'Tahula Traveler Home — 1118 Estudio',proj3:'Diluted House — 1118 Estudio',proj4:'Cafetería — 1118 Estudio',proj5:'Vivienda Unifamiliar — 1118 Estudio',proj6:'Casa JJR — 1118 Estudio',proj7:'Casa 1118 — 1118 Estudio'};
+            const t={home:'1118 Estudio — Arquitectura Modular',blog:'Blog — 1118 Estudio',art1:'¿Qué es una casa modular? — 1118 Estudio',art2:'Modular vs Tradicional — 1118 Estudio',art3:'Personalizar casa modular — 1118 Estudio',proj1:'Casa en el Campo — 1118 Estudio',proj2:'Tahula Traveler Home — 1118 Estudio',proj3:'Diluted House — 1118 Estudio',proj4:'Cafetería — 1118 Estudio',proj5:'Vivienda Unifamiliar — 1118 Estudio',proj6:'Casa JJR — 1118 Estudio',proj7:'Casa 1118 — 1118 Estudio',wizard:'Imagina tu proyecto — 1118 Estudio'};
             document.title=t[v]||t.home;
         },280);
     }
@@ -1065,6 +1276,121 @@
         window.location.href = 'mailto:info@1118estudio.com?subject=' + subject + '&body=' + body;
         document.getElementById('formSuccess').classList.add('show');
         cf.querySelector('button').style.display = 'none';
+    });
+
+    /* Wizard — Imagina tu proyecto */
+    var wizState = { step: 1, tipo: '', estilo: '', estiloImg: '', parcela: '', ubicacion: '', superficie: '', presupuesto: '', plazo: '' };
+
+    function wizGoTo(n, instant) {
+        var isSuccess = n === 'success';
+        var allSteps = document.querySelectorAll('.wizard-step');
+        var next = isSuccess ? document.getElementById('wizStepSuccess') : document.getElementById('wizStep' + n);
+        if (!next) return;
+        allSteps.forEach(function(s) { s.classList.remove('active', 'show'); });
+        if (instant) {
+            next.style.transition = 'none';
+            next.classList.add('active', 'show');
+            next.offsetHeight;
+            next.style.transition = '';
+        } else {
+            next.classList.add('active');
+            requestAnimationFrame(function() { requestAnimationFrame(function() { next.classList.add('show'); }); });
+        }
+        wizState.step = isSuccess ? 'success' : n;
+        var wBack = document.getElementById('wizBack');
+        var wCounter = document.getElementById('wizCounter');
+        var wProgress = document.getElementById('wizProgress');
+        if (isSuccess) { wBack.classList.add('hidden'); wCounter.textContent = ''; wProgress.style.width = '100%'; }
+        else { wBack.classList.toggle('hidden', n === 1); wCounter.textContent = 'Paso ' + n + ' de 5'; wProgress.style.width = (n / 5 * 100) + '%'; }
+    }
+
+    function wizReset() {
+        wizState.step = 1; wizState.tipo = ''; wizState.estilo = ''; wizState.estiloImg = '';
+        wizState.parcela = ''; wizState.ubicacion = ''; wizState.superficie = '';
+        wizState.presupuesto = ''; wizState.plazo = '';
+        document.querySelectorAll('.wizard-pill').forEach(function(p) { p.classList.remove('selected'); });
+        var sup = document.getElementById('wizSuperficie'); if (sup) sup.value = '';
+        var wf = document.getElementById('wizForm'); if (wf) wf.reset();
+        wizGoTo(1, true);
+    }
+
+    function wizPopulateSummary() {
+        var img = document.getElementById('wizSummaryImg');
+        var content = document.getElementById('wizSummaryContent');
+        if (wizState.estiloImg) img.src = wizState.estiloImg;
+        content.innerHTML =
+            '<p><strong>Tipo:</strong> ' + (wizState.tipo || '—') + '</p>' +
+            '<p><strong>Estilo:</strong> ' + (wizState.estilo || '—') + '</p>' +
+            '<p><strong>Parcela:</strong> ' + (wizState.parcela || '—') + '</p>' +
+            '<p><strong>Ubicación:</strong> ' + (wizState.ubicacion || '—') + '</p>' +
+            (wizState.superficie ? '<p><strong>Superficie:</strong> ' + wizState.superficie + ' m²</p>' : '') +
+            '<p><strong>Presupuesto:</strong> ' + (wizState.presupuesto || '—') + '</p>' +
+            '<p><strong>Plazo:</strong> ' + (wizState.plazo || '—') + '</p>';
+    }
+
+    /* Wizard card clicks (steps 1 & 2 — auto-advance) */
+    document.addEventListener('click', function(e) {
+        var c1 = e.target.closest('[data-wiz-type]');
+        if (c1) { wizState.tipo = c1.dataset.wizType; wizGoTo(2); return; }
+        var c2 = e.target.closest('[data-wiz-style]');
+        if (c2) { wizState.estilo = c2.dataset.wizStyle; wizState.estiloImg = c2.dataset.wizImg; wizGoTo(3); return; }
+    });
+
+    /* Pill selection */
+    document.querySelectorAll('.wizard-pill-group').forEach(function(group) {
+        group.addEventListener('click', function(e) {
+            var pill = e.target.closest('.wizard-pill');
+            if (!pill) return;
+            group.querySelectorAll('.wizard-pill').forEach(function(p) { p.classList.remove('selected'); });
+            pill.classList.add('selected');
+            wizState[group.dataset.wizField] = pill.dataset.value;
+        });
+    });
+
+    /* Continue buttons */
+    var wizCont3 = document.getElementById('wizCont3');
+    if (wizCont3) wizCont3.addEventListener('click', function() {
+        wizState.superficie = document.getElementById('wizSuperficie').value;
+        wizGoTo(4);
+    });
+    var wizCont4 = document.getElementById('wizCont4');
+    if (wizCont4) wizCont4.addEventListener('click', function() {
+        wizPopulateSummary();
+        wizGoTo(5);
+    });
+
+    /* Back button */
+    var wizBackBtn = document.getElementById('wizBack');
+    if (wizBackBtn) wizBackBtn.addEventListener('click', function() {
+        if (wizState.step > 1 && wizState.step !== 'success') wizGoTo(wizState.step - 1);
+    });
+
+    /* Wizard form submit */
+    var wizForm = document.getElementById('wizForm');
+    if (wizForm) wizForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var nm = document.getElementById('wiz-name').value;
+        var em = document.getElementById('wiz-email').value;
+        var ph = document.getElementById('wiz-phone').value;
+        var ms = document.getElementById('wiz-msg').value;
+        var subject = encodeURIComponent('Nuevo proyecto — Imagina tu proyecto');
+        var body = encodeURIComponent(
+            '=== DATOS DEL PROYECTO ===\n\n' +
+            'Tipo: ' + wizState.tipo + '\n' +
+            'Estilo: ' + wizState.estilo + '\n' +
+            'Parcela: ' + wizState.parcela + '\n' +
+            'Ubicación: ' + wizState.ubicacion + '\n' +
+            (wizState.superficie ? 'Superficie: ' + wizState.superficie + ' m²\n' : '') +
+            'Presupuesto: ' + wizState.presupuesto + '\n' +
+            'Plazo: ' + wizState.plazo + '\n\n' +
+            '=== DATOS DE CONTACTO ===\n\n' +
+            'Nombre: ' + nm + '\n' +
+            'Email: ' + em + '\n' +
+            (ph ? 'Teléfono: ' + ph + '\n' : '') +
+            (ms ? '\nMensaje:\n' + ms : '')
+        );
+        window.location.href = 'mailto:info@1118estudio.com?subject=' + subject + '&body=' + body;
+        wizGoTo('success');
     });
 })();
 </script>
