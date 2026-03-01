@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1118 Estudio — Arquitectura Modular</title>
+    <meta name="description" content="Estudio de arquitectura especializado en casas modulares y diseño contemporáneo. Murcia, España.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --white: #FFFFFF; --off-white: #F5F5F4; --light-gray: #D4D4D4;
+            --mid-gray: #6B6B6B; --soft-on-dark: #B0ADA8; --dark-gray: #444444;
+            --near-black: #1A1A1A; --black: #0A0A0A; --accent: #7E6636;
+            --font-serif: 'EB Garamond', Georgia, serif;
+            --font-sans: 'Instrument Sans', Helvetica Neue, sans-serif;
+        }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body { font-family: var(--font-sans); background: var(--white); color: var(--near-black); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+        /* HEADER */
+        header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255,255,255,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid transparent; transition: border-color 0.4s ease; }
+        header.scrolled { border-bottom-color: var(--light-gray); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; padding: 24px 48px; max-width: 1600px; margin: 0 auto; }
+        .logo { font-family: var(--font-sans); font-size: 13px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--black); text-decoration: none; cursor: pointer; transition: opacity 0.3s; }
+        .logo:hover { opacity: 0.6; }
+        nav { display: flex; gap: 36px; align-items: center; }
+        nav a { font-family: var(--font-sans); font-size: 11px; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase; color: var(--dark-gray); text-decoration: none; position: relative; transition: color 0.3s; cursor: pointer; }
+        nav a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--black); transition: width 0.4s cubic-bezier(0.25,0.1,0.25,1); }
+        nav a:hover { color: var(--black); }
+        nav a:hover::after { width: 100%; }
+        .menu-toggle { display: none; background: none; border: none; cursor: pointer; width: 28px; height: 20px; position: relative; }
+        .menu-toggle span { display: block; width: 100%; height: 1px; background: var(--black); position: absolute; left: 0; transition: all 0.3s; }
+        .menu-toggle span:nth-child(1) { top: 0; } .menu-toggle span:nth-child(2) { top: 50%; } .menu-toggle span:nth-child(3) { top: 100%; }
+        .menu-toggle.open span:nth-child(1) { top: 50%; transform: rotate(45deg); }
+        .menu-toggle.open span:nth-child(2) { opacity: 0; }
+        .menu-toggle.open span:nth-child(3) { top: 50%; transform: rotate(-45deg); }
+
+        /* VIEWS */
+        .view { display: none; opacity: 0; transition: opacity 0.3s ease; }
+        .view.active { display: block; }
+        .view.active.show { opacity: 1; }
+
+        /* HERO */
+        .hero { height: 100vh; min-height: 700px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; background: var(--off-white); }
+        .hero-bg { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.7) 100%), url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920&q=80') center/cover; transform: scale(1.05); transition: transform 8s ease-out; }
+        .hero.visible .hero-bg { transform: scale(1); }
+        .hero-content { position: relative; z-index: 2; text-align: center; padding: 0 48px; opacity: 0; transform: translateY(30px); animation: fadeUp 1.2s cubic-bezier(0.25,0.1,0.25,1) 0.3s forwards; }
+        .hero-content h1 { font-family: var(--font-serif); font-size: clamp(42px,7vw,96px); font-weight: 400; letter-spacing: -1px; color: var(--black); line-height: 1.05; margin-bottom: 24px; }
+        .hero-content h1 em { font-style: italic; color: var(--mid-gray); }
+        .hero-subtitle { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--mid-gray); font-weight: 500; }
+        .hero-line { width: 40px; height: 1px; background: var(--mid-gray); margin: 32px auto 0; opacity: 0; animation: fadeIn 1s ease 1.4s forwards; }
+        .scroll-indicator { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0; animation: fadeIn 1s ease 1.8s forwards; }
+        .scroll-indicator span { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--mid-gray); }
+        .scroll-line { width: 1px; height: 40px; background: var(--mid-gray); position: relative; overflow: hidden; }
+        .scroll-line::after { content: ''; position: absolute; top: -100%; left: 0; width: 100%; height: 100%; background: var(--black); animation: scrollDown 2s ease infinite; }
+
+        /* SECTIONS */
+        .section { padding: 120px 48px; max-width: 1600px; margin: 0 auto; }
+        .section-header { margin-bottom: 80px; opacity: 0; transform: translateY(20px); transition: all 0.8s cubic-bezier(0.25,0.1,0.25,1); }
+        .section-header.visible { opacity: 1; transform: translateY(0); }
+        .section-label { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--mid-gray); font-weight: 500; margin-bottom: 16px; }
+        .section-title { font-family: var(--font-serif); font-size: clamp(32px,4vw,52px); font-weight: 400; color: var(--black); line-height: 1.15; }
+        .divider-line { width: 40px; height: 1px; background: var(--light-gray); margin: 32px 0; }
+
+        /* PROJECTS */
+        .projects-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 3px; }
+        .project-card { position: relative; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.25,0.1,0.25,1); }
+        .project-card.visible { opacity: 1; transform: translateY(0); }
+        .project-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25,0.1,0.25,1); }
+        .project-card:hover img { transform: scale(1.04); }
+        .project-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,10,0.7) 0%, rgba(10,10,10,0) 50%); opacity: 0; transition: opacity 0.5s; display: flex; align-items: flex-end; padding: 36px; }
+        .project-card:hover .project-overlay { opacity: 1; }
+        .project-info h3 { font-family: var(--font-serif); font-size: 24px; font-weight: 400; color: var(--white); margin-bottom: 6px; }
+        .project-info p { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.7); font-weight: 500; }
+        .project-card.featured { grid-column: span 2; aspect-ratio: 21/9; }
+
+        /* ABOUT */
+        .about-section { background: var(--off-white); }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .about-image { aspect-ratio: 3/4; overflow: hidden; opacity: 0; transform: translateX(-30px); transition: all 1s cubic-bezier(0.25,0.1,0.25,1); }
+        .about-image.visible { opacity: 1; transform: translateX(0); }
+        .about-image img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(20%); }
+        .about-text { opacity: 0; transform: translateX(30px); transition: all 1s cubic-bezier(0.25,0.1,0.25,1) 0.2s; }
+        .about-text.visible { opacity: 1; transform: translateX(0); }
+        .about-text .section-label { margin-bottom: 20px; }
+        .about-text h2 { font-family: var(--font-serif); font-size: clamp(28px,3vw,42px); font-weight: 400; color: var(--black); line-height: 1.2; margin-bottom: 32px; }
+        .about-text p { font-size: 15px; line-height: 1.8; color: var(--dark-gray); margin-bottom: 20px; }
+
+        /* SERVICES */
+        .services-list { display: grid; grid-template-columns: repeat(3,1fr); gap: 48px; margin-top: 60px; }
+        .service-item { padding: 48px 0; border-top: 1px solid var(--light-gray); opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.25,0.1,0.25,1); }
+        .service-item.visible { opacity: 1; transform: translateY(0); }
+        .service-number { font-family: var(--font-serif); font-size: 36px; color: var(--light-gray); margin-bottom: 24px; line-height: 1; }
+        .service-item h3 { font-size: 14px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--black); margin-bottom: 16px; }
+        .service-item p { font-size: 14px; line-height: 1.7; color: var(--dark-gray); }
+
+        /* TEAM */
+        .team-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 80px; margin-top: 60px; }
+        .team-member { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.25,0.1,0.25,1); }
+        .team-member.visible { opacity: 1; transform: translateY(0); }
+        .team-member h3 { font-family: var(--font-serif); font-size: 26px; font-weight: 400; color: var(--black); margin-bottom: 4px; }
+        .team-role { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 20px; }
+        .team-member p { font-size: 14px; line-height: 1.8; color: var(--dark-gray); }
+
+        /* CONTACT */
+        .contact-section { background: var(--black); color: var(--white); }
+        .contact-section .section-label { color: var(--soft-on-dark); }
+        .contact-section .section-title { color: var(--white); }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 60px; }
+        .contact-info a { font-family: var(--font-serif); font-size: clamp(24px,3vw,40px); color: var(--white); text-decoration: none; display: block; line-height: 1.3; transition: color 0.3s; }
+        .contact-info a:hover { color: var(--accent); }
+        .contact-details p { font-size: 14px; line-height: 1.8; color: var(--soft-on-dark); }
+        .contact-details a { color: var(--soft-on-dark); text-decoration: none; transition: color 0.3s; }
+        .contact-details a:hover { color: var(--white); }
+
+        /* FOOTER */
+        footer { background: var(--black); border-top: 1px solid rgba(255,255,255,0.08); padding: 32px 48px; }
+        .footer-inner { max-width: 1600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        footer p { font-size: 11px; letter-spacing: 1.5px; color: var(--soft-on-dark); }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--soft-on-dark); text-decoration: none; cursor: pointer; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--white); }
+
+        /* BLOG LISTING */
+        .page-hero { padding: 160px 48px 80px; max-width: 1600px; margin: 0 auto; }
+        .page-hero h1 { font-family: var(--font-serif); font-size: clamp(36px,5vw,64px); font-weight: 400; color: var(--black); line-height: 1.1; max-width: 700px; }
+        .page-hero h1 em { font-style: italic; color: var(--mid-gray); }
+        .page-hero .intro { margin-top: 24px; font-size: 16px; line-height: 1.7; color: var(--dark-gray); max-width: 560px; }
+        .blog-grid { padding: 0 48px 120px; max-width: 1600px; margin: 0 auto; display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; }
+        .blog-card { text-decoration: none; color: inherit; display: block; cursor: pointer; opacity: 0; transform: translateY(24px); transition: all 0.7s cubic-bezier(0.25,0.1,0.25,1); }
+        .blog-card.visible { opacity: 1; transform: translateY(0); }
+        .blog-card-image { aspect-ratio: 3/2; overflow: hidden; margin-bottom: 24px; }
+        .blog-card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.25,0.1,0.25,1); }
+        .blog-card:hover .blog-card-image img { transform: scale(1.04); }
+        .blog-card-tag { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 10px; }
+        .blog-card h2 { font-family: var(--font-serif); font-size: 24px; font-weight: 400; color: var(--black); line-height: 1.25; margin-bottom: 12px; transition: color 0.3s; }
+        .blog-card:hover h2 { color: var(--accent); }
+        .blog-card p { font-size: 14px; line-height: 1.65; color: var(--dark-gray); margin-bottom: 16px; }
+        .blog-card-meta { font-size: 11px; letter-spacing: 1px; color: var(--mid-gray); text-transform: uppercase; }
+
+        /* ARTICLE */
+        .article-hero { padding: 160px 48px 0; max-width: 760px; margin: 0 auto; }
+        .article-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+        .article-tag { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+        .article-date { font-size: 11px; color: var(--mid-gray); }
+        .article-meta-separator { width: 20px; height: 1px; background: var(--light-gray); }
+        .article-hero h1 { font-family: var(--font-serif); font-size: clamp(32px,4.5vw,52px); font-weight: 400; color: var(--black); line-height: 1.12; margin-bottom: 24px; }
+        .article-lead { font-family: var(--font-serif); font-size: 20px; line-height: 1.6; color: var(--dark-gray); font-style: italic; }
+        .article-hero-image { margin: 56px auto 0; max-width: 1100px; padding: 0 48px; }
+        .article-hero-image img { width: 100%; aspect-ratio: 21/9; object-fit: cover; display: block; }
+        .article-hero-image figcaption { font-size: 11px; color: var(--mid-gray); margin-top: 12px; }
+        .article-body { max-width: 760px; margin: 0 auto; padding: 56px 48px 120px; }
+        .article-body h2 { font-family: var(--font-serif); font-size: 30px; font-weight: 400; color: var(--black); margin: 56px 0 20px; line-height: 1.2; }
+        .article-body h3 { font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin: 40px 0 16px; }
+        .article-body p { font-size: 16px; line-height: 1.8; color: var(--dark-gray); margin-bottom: 20px; }
+        .article-body p strong { color: var(--near-black); font-weight: 600; }
+        .article-body blockquote { border-left: 2px solid var(--accent); padding: 8px 0 8px 28px; margin: 40px 0; }
+        .article-body blockquote p { font-family: var(--font-serif); font-size: 22px; line-height: 1.5; color: var(--near-black); font-style: italic; margin-bottom: 0; }
+        .divider { width: 40px; height: 1px; background: var(--light-gray); margin: 48px 0; }
+        .project-reference { background: var(--off-white); padding: 40px; margin: 48px 0; display: grid; grid-template-columns: 1fr 1.2fr; gap: 32px; align-items: center; }
+        .project-reference img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+        .project-reference-text .ref-label { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 12px; }
+        .project-reference-text h4 { font-family: var(--font-serif); font-size: 24px; font-weight: 400; color: var(--black); margin-bottom: 12px; }
+        .project-reference-text p { font-size: 14px; line-height: 1.7; color: var(--dark-gray); margin-bottom: 16px; }
+        .project-link { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); text-decoration: none; font-weight: 600; cursor: pointer; transition: color 0.3s; }
+        .project-link:hover { color: var(--black); }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 36px 0 40px; }
+        .comparison-table th { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--mid-gray); font-weight: 500; padding: 12px 16px; text-align: left; border-bottom: 2px solid var(--near-black); }
+        .comparison-table td { font-size: 15px; padding: 16px; border-bottom: 1px solid var(--light-gray); color: var(--dark-gray); vertical-align: top; line-height: 1.5; }
+        .comparison-table td:first-child { font-weight: 600; color: var(--near-black); width: 28%; }
+        .comparison-table td.hl { color: var(--accent); font-weight: 600; }
+        .myth-block { background: var(--off-white); padding: 32px 36px; margin: 36px 0; border-left: 3px solid var(--light-gray); }
+        .myth-label { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
+        .myth-label.myth { color: #B84C4C; }
+        .myth-label.reality { color: var(--accent); }
+        .myth-block p { margin-bottom: 0; }
+        .article-cta { background: var(--black); padding: 56px 40px; text-align: center; margin: 48px 0; }
+        .article-cta p { font-family: var(--font-serif); font-size: 24px; color: var(--white); margin-bottom: 24px; font-style: italic; }
+        .article-cta a { display: inline-block; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--white); border: 1px solid rgba(255,255,255,0.3); padding: 14px 36px; text-decoration: none; cursor: pointer; transition: all 0.3s; font-weight: 500; }
+        .article-cta a:hover { background: var(--white); color: var(--black); }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--mid-gray); text-decoration: none; cursor: pointer; margin-bottom: 32px; transition: color 0.3s; }
+        .back-link:hover { color: var(--black); }
+        .back-link svg { width: 16px; height: 16px; }
+
+        /* ANIMATIONS */
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes scrollDown { 0% { top: -100%; } 100% { top: 100%; } }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .header-inner { padding: 20px 32px; } .section { padding: 80px 32px; }
+            .services-list { grid-template-columns: 1fr; gap: 0; }
+            .contact-grid, .about-grid { grid-template-columns: 1fr; gap: 48px; }
+            .blog-grid { grid-template-columns: repeat(2,1fr); }
+        }
+        @media (max-width: 768px) {
+            .header-inner { padding: 18px 24px; }
+            .menu-toggle { display: block; }
+            nav { position: fixed; top: 0; right: -100%; width: 100%; height: 100vh; background: var(--white); flex-direction: column; justify-content: center; align-items: center; gap: 32px; transition: right 0.5s cubic-bezier(0.25,0.1,0.25,1); z-index: 999; }
+            nav.open { right: 0; }
+            nav a { font-size: 14px; letter-spacing: 4px; }
+            .section { padding: 64px 24px; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .project-card.featured { grid-column: span 1; aspect-ratio: 4/3; }
+            .project-overlay { opacity: 1; background: linear-gradient(to top, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0) 40%); }
+            .about-grid { grid-template-columns: 1fr; gap: 40px; }
+            .about-image { aspect-ratio: 16/10; }
+            .team-grid { grid-template-columns: 1fr; }
+            .page-hero { padding: 140px 24px 48px; }
+            .blog-grid { grid-template-columns: 1fr; padding: 0 24px 80px; }
+            .article-hero { padding: 140px 24px 0; }
+            .article-hero-image { padding: 0 24px; }
+            .article-body { padding: 40px 24px 80px; }
+            .project-reference { grid-template-columns: 1fr; padding: 28px; }
+            .comparison-table td, .comparison-table th { padding: 10px 8px; font-size: 13px; }
+            footer { padding: 24px; }
+            .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<header id="header">
+    <div class="header-inner">
+        <a class="logo" data-nav="home">1118 Estudio</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menú"><span></span><span></span><span></span></button>
+        <nav id="mainNav">
+            <a data-nav="home" data-scroll="proyectos">Proyectos</a>
+            <a data-nav="home" data-scroll="estudio">Estudio</a>
+            <a data-nav="home" data-scroll="servicios">Servicios</a>
+            <a data-nav="blog">Blog</a>
+            <a data-nav="home" data-scroll="equipo">Equipo</a>
+            <a data-nav="home" data-scroll="contacto">Contacto</a>
+        </nav>
+    </div>
+</header>
+
+<!-- ═══════════════ HOME ═══════════════ -->
+<div class="view active show" id="v-home">
+    <section class="hero visible">
+        <div class="hero-bg"></div>
+        <div class="hero-content"><h1>Arquitectura<br><em>esencial</em></h1><p class="hero-subtitle">Murcia · Cartagena · España</p><div class="hero-line"></div></div>
+        <div class="scroll-indicator"><span>Scroll</span><div class="scroll-line"></div></div>
+    </section>
+    <section class="section" id="proyectos">
+        <div class="section-header"><p class="section-label">Obras y Proyectos</p><h2 class="section-title">Trabajos seleccionados</h2></div>
+        <div class="projects-grid">
+            <div class="project-card featured" data-delay="0"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1400&q=80" alt="Casa en el Campo"><div class="project-overlay"><div class="project-info"><h3>Casa en el Campo</h3><p>Vivienda unifamiliar · 2023</p></div></div></div>
+            <div class="project-card" data-delay="100"><img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80" alt="Tahula"><div class="project-overlay"><div class="project-info"><h3>Tahula Traveler Home</h3><p>Vivienda · 2022</p></div></div></div>
+            <div class="project-card" data-delay="200"><img src="https://images.unsplash.com/photo-1600563438938-a9a27216b4f5?w=800&q=80" alt="Diluted House"><div class="project-overlay"><div class="project-info"><h3>Diluted House</h3><p>Vivienda unifamiliar · 2022</p></div></div></div>
+            <div class="project-card" data-delay="100"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=80" alt="Cafetería"><div class="project-overlay"><div class="project-info"><h3>Cafetería</h3><p>Diseño de interiores · Infografías</p></div></div></div>
+            <div class="project-card" data-delay="200"><img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&q=80" alt="Vivienda"><div class="project-overlay"><div class="project-info"><h3>Vivienda Unifamiliar</h3><p>Residencial · 2021</p></div></div></div>
+            <div class="project-card" data-delay="100"><img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=800&q=80" alt="Casa JJR"><div class="project-overlay"><div class="project-info"><h3>Casa JJR</h3><p>Vivienda unifamiliar · 2020</p></div></div></div>
+            <div class="project-card" data-delay="200"><img src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=800&q=80" alt="Casa 1118"><div class="project-overlay"><div class="project-info"><h3>Casa 1118</h3><p>Vivienda unifamiliar · 2019</p></div></div></div>
+        </div>
+    </section>
+    <section class="section about-section" id="estudio">
+        <div class="about-grid">
+            <div class="about-image"><img src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?w=900&q=80" alt="Estudio"></div>
+            <div class="about-text"><p class="section-label">Estudio</p><h2>Arquitectura joven<br>y emprendedora</h2><p>1118 es un estudio de arquitectura joven y emprendedor, que combina la experiencia con la ilusión y el trabajo de innovación de un equipo de jóvenes profesionales en expansión.</p><p>El estudio se encuentra a disposición de desarrollar proyectos de arquitectura, diseño y urbanismo, con clientes que van desde la administración pública a grandes empresas privadas y clientes particulares.</p><div class="divider-line"></div><p class="section-label" style="margin-bottom:0">Fundado en 2018 · Murcia, España</p></div>
+        </div>
+    </section>
+    <section class="section" id="servicios">
+        <div class="section-header"><p class="section-label">Servicios</p><h2 class="section-title">Lo que hacemos</h2></div>
+        <div class="services-list">
+            <div class="service-item" data-delay="0"><div class="service-number">01</div><h3>Arquitectura</h3><p>Proyectos residenciales y comerciales. Desde la idea inicial hasta la dirección de obra.</p></div>
+            <div class="service-item" data-delay="150"><div class="service-number">02</div><h3>Diseño de Interiores</h3><p>Diseño integral de espacios interiores. Selección de materiales, mobiliario y acabados.</p></div>
+            <div class="service-item" data-delay="300"><div class="service-number">03</div><h3>Urbanismo</h3><p>Planes parciales, estudios de detalle y proyectos de urbanización.</p></div>
+            <div class="service-item" data-delay="0"><div class="service-number">04</div><h3>Visualización</h3><p>Infografías arquitectónicas, renders fotorrealistas y recorridos virtuales.</p></div>
+            <div class="service-item" data-delay="150"><div class="service-number">05</div><h3>Rehabilitación</h3><p>Reformas integrales, cambios de uso y puesta en valor del patrimonio construido.</p></div>
+            <div class="service-item" data-delay="300"><div class="service-number">06</div><h3>Accesibilidad</h3><p>Especialistas en arquitectura accesible y eliminación de barreras arquitectónicas.</p></div>
+        </div>
+    </section>
+    <section class="section about-section" id="equipo">
+        <div class="section-header"><p class="section-label">Equipo</p><h2 class="section-title">Quiénes somos</h2></div>
+        <div class="team-grid">
+            <div class="team-member" data-delay="0"><h3>Francisco Bernal Martínez</h3><p class="team-role">Co-fundador · Arquitecto</p><p>Arquitecto por la UPCT en 2017. Experto en urbanismo. Ha trabajado para la Universidad Politécnica de Cartagena elaborando el análisis de los planes parciales de Murcia y Molina de Segura.</p></div>
+            <div class="team-member" data-delay="150"><h3>Felipe Espinel Barceló</h3><p class="team-role">Co-fundador · Arquitecto</p><p>Arquitecto por la UPCT en 2017. Experto en arquitectura accesible y eliminación de barreras arquitectónicas. Máster en Visualización Arquitectónica en 2019.</p></div>
+        </div>
+    </section>
+    <section class="section contact-section" id="contacto">
+        <div class="section-header"><p class="section-label">Contacto</p><h2 class="section-title">Hablemos de<br>su proyecto</h2></div>
+        <div class="contact-grid">
+            <div class="contact-info"><a href="mailto:info@1118estudio.com">info@1118estudio.com</a></div>
+            <div class="contact-details"><p>1118 Estudio de Arquitectura</p><p>Murcia, España</p><div class="divider-line" style="background:rgba(255,255,255,0.15)"></div><p><a href="https://www.instagram.com/1118estudio/" target="_blank">Instagram</a> · <a href="https://www.1118estudio.com" target="_blank">Web original</a></p></div>
+        </div>
+    </section>
+</div>
+
+<!-- ═══════════════ BLOG ═══════════════ -->
+<div class="view" id="v-blog">
+    <div class="page-hero"><p class="section-label">Blog</p><h1>Arquitectura <em>modular</em></h1><p class="intro">Guías, reflexiones y experiencia real sobre construcción modular. Todo lo que necesitas saber antes de dar el paso.</p></div>
+    <div class="blog-grid">
+        <div class="blog-card" data-delay="0" data-nav="art1"><div class="blog-card-image"><img src="https://images.unsplash.com/photo-1605276373954-0c4a0dac5b12?w=800&q=80" alt=""></div><p class="blog-card-tag">Guía</p><h2>¿Qué es una casa modular? Todo lo que debes saber en 2026</h2><p>Desde la fabricación en taller hasta la entrega de llaves. Cómo funciona realmente el proceso.</p><span class="blog-card-meta">12 min lectura</span></div>
+        <div class="blog-card" data-delay="150" data-nav="art2"><div class="blog-card-image"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80" alt=""></div><p class="blog-card-tag">Comparativa</p><h2>Construcción modular frente a tradicional: datos reales de obra</h2><p>Plazos, costes, calidad y sostenibilidad con números de proyectos ejecutados.</p><span class="blog-card-meta">10 min lectura</span></div>
+        <div class="blog-card" data-delay="300" data-nav="art3"><div class="blog-card-image"><img src="https://images.unsplash.com/photo-1600047509358-9dc75507daeb?w=800&q=80" alt=""></div><p class="blog-card-tag">Diseño</p><h2>¿Se puede personalizar una casa modular? Mitos y realidad</h2><p>Desmontamos el mayor prejuicio: que todo se parece.</p><span class="blog-card-meta">9 min lectura</span></div>
+    </div>
+</div>
+
+<!-- ═══════════════ ART 1 ═══════════════ -->
+<div class="view" id="v-art1">
+    <div class="article-hero">
+        <a class="back-link" data-nav="blog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Blog</a>
+        <div class="article-meta"><span class="article-tag">Guía</span><span class="article-meta-separator"></span><span class="article-date">Febrero 2026 · 12 min lectura</span></div>
+        <h1>¿Qué es una casa modular? Todo lo que debes saber antes de construir</h1>
+        <p class="article-lead">La construcción modular ha dejado de ser una alternativa para convertirse en el método que eligen quienes quieren construir mejor, más rápido y con mayor control.</p>
+    </div>
+    <figure class="article-hero-image"><img src="https://images.unsplash.com/photo-1605276373954-0c4a0dac5b12?w=1400&q=80" alt=""><figcaption>Vivienda modular con acabados de alta calidad.</figcaption></figure>
+    <article class="article-body">
+        <h2>Lo primero: qué significa «modular»</h2>
+        <p>Cuando hablamos de una <strong>casa modular</strong>, nos referimos a una vivienda cuyas partes principales se fabrican en un entorno industrial controlado. Después, esos módulos se transportan a la parcela y se ensamblan sobre una cimentación preparada.</p>
+        <p>Es importante no confundir una casa modular con una prefabricada de catálogo. Una casa modular puede diseñarse completamente a medida, con la misma libertad compositiva que cualquier vivienda tradicional. Lo que cambia no es el diseño, sino el método de fabricación.</p>
+        <p>El resultado cumple exactamente la misma normativa que cualquier construcción convencional —CTE, normativa local, eficiencia energética— pero se beneficia de tolerancias mucho más ajustadas.</p>
+        <h2>Cómo funciona el proceso</h2>
+        <h3>1. Proyecto de arquitectura</h3>
+        <p>Todo empieza igual que en una obra convencional: un proyecto redactado por profesionales colegiados. La diferencia es que se piensa desde el primer croquis en la lógica modular: dimensiones de transporte, puntos de unión y secuencia de montaje.</p>
+        <h3>2. Fabricación en taller</h3>
+        <p>Mientras se ejecuta la cimentación en parcela, los módulos se fabrican simultáneamente en fábrica. <strong>Cimentación y estructura avanzan en paralelo.</strong> En taller se controla humedad, temperatura y calidad de cada unión.</p>
+        <h3>3. Transporte y montaje</h3>
+        <p>Los módulos llegan en camión y se colocan con grúa. El montaje de la estructura puede resolverse en uno o dos días. Sellado, conexiones y remates requieren semanas adicionales, pero el grueso está hecho.</p>
+        <h3>4. Acabados y entrega</h3>
+        <p>Los plazos totales oscilan entre los <strong>8 y 14 meses</strong>, frente a los 18-24 de una construcción tradicional equivalente.</p>
+        <h2>La pregunta del coste</h2>
+        <p>Una casa modular no es necesariamente más barata. Lo que sí es más predecible. Los sobrecostes en obra tradicional rondan el 10-20%. En modular, ese margen se reduce al 2-5%.</p>
+        <p>Referencia: entre <strong>1.200 y 1.800 €/m²</strong> de ejecución material, sin parcela ni licencias.</p>
+        <div class="project-reference"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80" alt="Casa en el Campo"><div class="project-reference-text"><p class="ref-label">Proyecto destacado</p><h4>Casa en el Campo</h4><p>Aplicamos principios de diseño modular para resolver una vivienda que dialoga con el paisaje rural murciano. La optimización de la estructura permitió reducir plazos sin renunciar a la espacialidad.</p><a class="project-link" data-nav="home" data-scroll="proyectos">Ver proyecto →</a></div></div>
+        <h2>¿Para quién tiene sentido?</h2>
+        <p>Para quien valora tres cosas: <strong>control del presupuesto, certeza en plazos y calidad constructiva contrastable</strong>.</p>
+        <blockquote><p>Lo modular no es un atajo. Es un camino diferente hacia el mismo destino: una casa bien pensada y bien construida.</p></blockquote>
+        <h2>Lo que la construcción modular no es</h2>
+        <p>No es un container reconvertido. No es un catálogo. Y no es menor calidad. Una casa modular diseñada por arquitectos es, a todos los efectos, exactamente igual que cualquier vivienda. Se inscribe en el registro, tiene licencia de primera ocupación y se hipoteca como cualquier inmueble.</p>
+        <div class="divider"></div>
+        <div class="article-cta"><p>¿Estás valorando construir una casa modular?</p><a data-nav="home" data-scroll="contacto">Contactar con el estudio</a></div>
+    </article>
+</div>
+
+<!-- ═══════════════ ART 2 ═══════════════ -->
+<div class="view" id="v-art2">
+    <div class="article-hero">
+        <a class="back-link" data-nav="blog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Blog</a>
+        <div class="article-meta"><span class="article-tag">Comparativa</span><span class="article-meta-separator"></span><span class="article-date">Febrero 2026 · 10 min lectura</span></div>
+        <h1>Construcción modular frente a tradicional: datos reales de obra</h1>
+        <p class="article-lead">Después de ejecutar proyectos con ambos sistemas, compartimos lo que hemos aprendido. Sin dogmas, con números.</p>
+    </div>
+    <figure class="article-hero-image"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1400&q=80" alt=""><figcaption>El resultado final es indistinguible. Lo que cambia es el camino.</figcaption></figure>
+    <article class="article-body">
+        <h2>Dos caminos, mismo destino</h2>
+        <p><strong>Una casa modular bien ejecutada y una tradicional bien ejecutada son exactamente iguales en resultado.</strong> Misma normativa, mismas prestaciones. El debate es sobre el trayecto.</p>
+        <h2>La comparativa, con datos</h2>
+        <p>Datos de proyectos ejecutados en la Región de Murcia, viviendas de 120-200 m².</p>
+        <table class="comparison-table"><thead><tr><th>Criterio</th><th>Tradicional</th><th>Modular</th></tr></thead><tbody>
+            <tr><td>Plazo total</td><td>16 – 24 meses</td><td class="hl">8 – 14 meses</td></tr>
+            <tr><td>Desviación presupuesto</td><td>10 – 20%</td><td class="hl">2 – 5%</td></tr>
+            <tr><td>Coste €/m²</td><td>1.100 – 1.700 €</td><td>1.200 – 1.800 €</td></tr>
+            <tr><td>Residuos en obra</td><td>Estándar</td><td class="hl">Hasta 60% menos</td></tr>
+            <tr><td>Flexibilidad diseño</td><td class="hl">Total</td><td>Alta (restricciones transporte)</td></tr>
+            <tr><td>Ampliaciones</td><td class="hl">Sencillas</td><td>Posibles, más complejas</td></tr>
+            <tr><td>Control calidad</td><td>Variable</td><td class="hl">Industrializado</td></tr>
+        </tbody></table>
+        <h2>Donde lo modular gana</h2>
+        <h3>Plazos predecibles</h3>
+        <p>Fabricación y cimentación avanzan en paralelo. <strong>Hemos entregado viviendas en 10 meses que en convencional habrían requerido 20.</strong></p>
+        <h3>Presupuesto cerrado</h3>
+        <p>Sin imprevistos meteorológicos, sin subcontratas que fallen. Las mediciones son exactas desde el principio.</p>
+        <h3>Sostenibilidad</h3>
+        <p>Los recortes se reutilizan en fábrica. El consumo de agua en obra se reduce drásticamente.</p>
+        <h2>Donde lo tradicional gana</h2>
+        <h3>Geometrías complejas</h3>
+        <p>Formas orgánicas, grandes voladizos o plantas muy irregulares tienen más libertad en obra convencional.</p>
+        <h3>Parcelas difíciles</h3>
+        <p>Caminos estrechos o pendientes pronunciadas dificultan el acceso de los módulos.</p>
+        <h3>Ampliaciones futuras</h3>
+        <p>La integración de nuevos elementos estructurales es más directa en construcción convencional.</p>
+        <div class="project-reference"><img src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=600&q=80" alt="Casa 1118"><div class="project-reference-text"><p class="ref-label">Proyecto destacado</p><h4>Casa 1118</h4><p>Nuestra vivienda-laboratorio. Testeamos en primera persona las diferencias entre sistemas constructivos. Habitar lo que diseñas es el mejor aprendizaje para asesorar a clientes.</p><a class="project-link" data-nav="home" data-scroll="proyectos">Ver proyecto →</a></div></div>
+        <blockquote><p>El mejor sistema constructivo es el que se elige sabiendo exactamente por qué se elige.</p></blockquote>
+        <div class="divider"></div>
+        <div class="article-cta"><p>¿Necesitas ayuda para decidir qué sistema se adapta a tu parcela?</p><a data-nav="home" data-scroll="contacto">Solicitar consulta</a></div>
+    </article>
+</div>
+
+<!-- ═══════════════ ART 3 ═══════════════ -->
+<div class="view" id="v-art3">
+    <div class="article-hero">
+        <a class="back-link" data-nav="blog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Blog</a>
+        <div class="article-meta"><span class="article-tag">Diseño</span><span class="article-meta-separator"></span><span class="article-date">Febrero 2026 · 9 min lectura</span></div>
+        <h1>¿Se puede personalizar una casa modular? Mitos y realidad</h1>
+        <p class="article-lead">El mayor prejuicio: que todo se parece. Eliges modelo A o B, cambias el color y poco más. La realidad es bastante diferente.</p>
+    </div>
+    <figure class="article-hero-image"><img src="https://images.unsplash.com/photo-1600047509358-9dc75507daeb?w=1400&q=80" alt=""><figcaption>La personalización empieza en el tablero del arquitecto, no en un catálogo.</figcaption></figure>
+    <article class="article-body">
+        <h2>De dónde viene el mito</h2>
+        <p>El mercado de «casas prefabricadas» ha estado dominado por modelos cerrados de catálogo. <strong>La confusión entre «prefabricado de catálogo» y «arquitectura modular» es el origen de casi todos los prejuicios.</strong></p>
+        <p>Cuando un arquitecto diseña una casa modular, el punto de partida es el mismo que en una convencional: parcela, cliente, programa de necesidades y presupuesto.</p>
+        <h2>Qué se puede personalizar</h2>
+        <h3>La distribución completa</h3>
+        <p>La planta se diseña desde cero. Múltiples módulos generan plantas en L, en U, con patios y dobles alturas.</p>
+        <h3>La fachada</h3>
+        <p>Piedra, ladrillo, madera, revoco, zinc... Los materiales son exactamente los mismos que en convencional.</p>
+        <h3>Los acabados interiores</h3>
+        <p>Todo se selecciona con el mismo detalle. El trabajo en fábrica permite a veces <strong>mayor precisión</strong>.</p>
+        <h3>Las instalaciones</h3>
+        <p>Aerotermia, suelo radiante, fotovoltaica, domótica... Sin ninguna restricción técnica.</p>
+        <div class="myth-block"><p class="myth-label myth">Mito</p><p><strong>«Las casas modulares son todas iguales, tipo container»</strong></p></div>
+        <div class="myth-block"><p class="myth-label reality">Realidad</p><p>Los módulos son el método de fabricación, no el diseño. Es como decir que todos los libros son iguales porque se imprimen en la misma imprenta.</p></div>
+        <h2>Qué tiene restricciones</h2>
+        <h3>Dimensiones de transporte</h3>
+        <p>Ancho máximo ~3,5 m (ampliable a 4,5 m con transporte especial), altura ~4 m. <strong>No limitan el diseño, lo condicionan.</strong></p>
+        <h3>Grandes luces y voladizos</h3>
+        <p>Factibles haciendo que varios módulos trabajen solidariamente, pero requiere ingeniería más cuidadosa.</p>
+        <h3>Formas no ortogonales</h3>
+        <p>Posibles pero encarecen la fabricación. Conviene valorar si lo modular sigue siendo la mejor opción.</p>
+        <div class="project-reference"><img src="https://images.unsplash.com/photo-1600563438938-a9a27216b4f5?w=600&q=80" alt="Diluted House"><div class="project-reference-text"><p class="ref-label">Proyecto destacado</p><h4>Diluted House</h4><p>Personalización total compatible con racionalidad constructiva. La vivienda «diluye» los límites entre interior y exterior con grandes paños de vidrio. Nada se parece a un catálogo.</p><a class="project-link" data-nav="home" data-scroll="proyectos">Ver proyecto →</a></div></div>
+        <h2>El papel del arquitecto</h2>
+        <p><strong>La calidad del proyecto es más determinante que en una obra convencional.</strong> No hay margen para la improvisación. Eso eleva la exigencia del diseño, pero también el resultado.</p>
+        <blockquote><p>En arquitectura modular, el proyecto es la obra. Lo que se dibuja es, literalmente, lo que se construye.</p></blockquote>
+        <div class="divider"></div>
+        <div class="article-cta"><p>¿Tienes una parcela y una idea?<br>Es todo lo que necesitamos para empezar.</p><a data-nav="home" data-scroll="contacto">Cuéntanos tu proyecto</a></div>
+    </article>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-inner">
+        <p>&copy; 2026 1118 Estudio de Arquitectura</p>
+        <div class="footer-links">
+            <a data-nav="home" data-scroll="proyectos">Proyectos</a>
+            <a data-nav="blog">Blog</a>
+            <a data-nav="home" data-scroll="contacto">Contacto</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+(function(){
+    let cur = 'home';
+    const views = document.querySelectorAll('.view');
+    const mt = document.getElementById('menuToggle');
+    const nav = document.getElementById('mainNav');
+    const hdr = document.getElementById('header');
+
+    function go(v, sc) {
+        mt.classList.remove('open'); nav.classList.remove('open');
+        if (v === cur && sc) { const el = document.getElementById(sc); if(el) window.scrollTo({top: el.offsetTop-80, behavior:'smooth'}); return; }
+        if (v === cur && !sc) return;
+        const old = document.getElementById('v-'+cur);
+        old.classList.remove('show');
+        setTimeout(()=>{
+            views.forEach(x=>x.classList.remove('active','show'));
+            const nw = document.getElementById('v-'+v);
+            nw.classList.add('active');
+            window.scrollTo(0,0);
+            requestAnimationFrame(()=>requestAnimationFrame(()=>{
+                nw.classList.add('show');
+                if(sc) setTimeout(()=>{ const el=document.getElementById(sc); if(el) window.scrollTo({top:el.offsetTop-80, behavior:'smooth'});},100);
+            }));
+            cur = v;
+            history.pushState(null,'', v==='home'?'#':'#'+v);
+            reObs();
+            const t={home:'1118 Estudio — Arquitectura Modular',blog:'Blog — 1118 Estudio',art1:'¿Qué es una casa modular? — 1118 Estudio',art2:'Modular vs Tradicional — 1118 Estudio',art3:'Personalizar casa modular — 1118 Estudio'};
+            document.title=t[v]||t.home;
+        },280);
+    }
+
+    document.addEventListener('click',e=>{
+        const l=e.target.closest('[data-nav]'); if(!l) return;
+        e.preventDefault(); go(l.dataset.nav, l.dataset.scroll||null);
+    });
+
+    mt.addEventListener('click',()=>{ mt.classList.toggle('open'); nav.classList.toggle('open'); });
+    window.addEventListener('scroll',()=>{ hdr.classList.toggle('scrolled', pageYOffset>60); });
+
+    let obs;
+    function reObs(){
+        if(obs) obs.disconnect();
+        obs=new IntersectionObserver(en=>{
+            en.forEach(e=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'), parseInt(e.target.dataset.delay||0)); obs.unobserve(e.target); }});
+        },{threshold:0.15, rootMargin:'0px 0px -50px 0px'});
+        document.querySelectorAll('.section-header,.project-card,.about-image,.about-text,.service-item,.team-member,.blog-card').forEach(el=>{ if(!el.classList.contains('visible')) obs.observe(el); });
+    }
+    reObs();
+
+    window.addEventListener('popstate',()=>{ const h=location.hash.replace('#','')||'home'; go(h); });
+    const ih=location.hash.replace('#',''); if(ih&&ih!=='') go(ih);
+})();
+</script>
+</body>
+</html>
