@@ -189,6 +189,46 @@
         .back-link:hover { color: var(--black); }
         .back-link svg { width: 16px; height: 16px; }
 
+        /* PROJECT DETAIL */
+        .project-hero { position: relative; height: 70vh; min-height: 480px; overflow: hidden; display: flex; align-items: flex-end; background: var(--black); }
+        .project-hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.55; }
+        .project-hero-overlay { position: relative; z-index: 2; width: 100%; padding: 48px; max-width: 1600px; margin: 0 auto; }
+        .project-hero-overlay .back-link { color: rgba(255,255,255,0.6); margin-bottom: 16px; }
+        .project-hero-overlay .back-link:hover { color: var(--white); }
+        .project-hero-overlay .back-link svg { stroke: currentColor; }
+        .project-hero-type { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--soft-on-dark); font-weight: 500; margin-bottom: 12px; }
+        .project-hero-overlay h1 { font-family: var(--font-serif); font-size: clamp(32px,5vw,56px); font-weight: 400; color: var(--white); line-height: 1.1; }
+
+        .project-data { padding: 64px 48px; max-width: 1600px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); gap: 32px; border-bottom: 1px solid var(--light-gray); }
+        .project-data-item { }
+        .project-data-label { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--mid-gray); font-weight: 500; margin-bottom: 8px; }
+        .project-data-value { font-family: var(--font-serif); font-size: 20px; color: var(--black); }
+
+        .project-gallery { padding: 80px 48px; max-width: 1600px; margin: 0 auto; }
+        .project-gallery h2 { font-family: var(--font-serif); font-size: 30px; font-weight: 400; color: var(--black); margin-bottom: 32px; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px; }
+        .gallery-grid img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; opacity: 0; transform: translateY(20px); transition: all 0.7s cubic-bezier(0.25,0.1,0.25,1); }
+        .gallery-grid img.visible { opacity: 1; transform: translateY(0); }
+        .gallery-grid img.wide { grid-column: span 2; aspect-ratio: 21/9; }
+
+        .project-tech { padding: 80px 48px; max-width: 1600px; margin: 0 auto; background: var(--off-white); }
+        .project-tech h2 { font-family: var(--font-serif); font-size: 30px; font-weight: 400; color: var(--black); margin-bottom: 40px; }
+        .project-tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+        .project-tech-text p { font-size: 16px; line-height: 1.8; color: var(--dark-gray); margin-bottom: 16px; }
+        .project-tech-list { }
+        .project-tech-list dl { display: grid; grid-template-columns: 1fr 1.5fr; gap: 0; }
+        .project-tech-list dt { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--mid-gray); font-weight: 500; padding: 14px 0; border-bottom: 1px solid var(--light-gray); }
+        .project-tech-list dd { font-size: 15px; color: var(--near-black); padding: 14px 0; border-bottom: 1px solid var(--light-gray); margin: 0; }
+
+        .project-nav { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--light-gray); }
+        .project-nav-card { position: relative; overflow: hidden; aspect-ratio: 21/9; cursor: pointer; display: flex; align-items: flex-end; opacity: 0; transform: translateY(20px); transition: all 0.7s cubic-bezier(0.25,0.1,0.25,1); }
+        .project-nav-card.visible { opacity: 1; transform: translateY(0); }
+        .project-nav-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25,0.1,0.25,1); }
+        .project-nav-card:hover img { transform: scale(1.04); }
+        .project-nav-card-overlay { position: relative; z-index: 2; width: 100%; padding: 36px; background: linear-gradient(to top, rgba(10,10,10,0.75) 0%, rgba(10,10,10,0) 100%); }
+        .project-nav-label { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,0.6); font-weight: 500; margin-bottom: 8px; }
+        .project-nav-card-overlay h3 { font-family: var(--font-serif); font-size: 24px; font-weight: 400; color: var(--white); }
+
         /* ANIMATIONS */
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeIn { to { opacity: 1; } }
@@ -200,6 +240,8 @@
             .services-list { grid-template-columns: 1fr; gap: 0; }
             .contact-grid, .about-grid { grid-template-columns: 1fr; gap: 48px; }
             .blog-grid { grid-template-columns: repeat(2,1fr); }
+            .project-data { grid-template-columns: repeat(3, 1fr); }
+            .project-tech-grid { grid-template-columns: 1fr; gap: 40px; }
         }
         @media (max-width: 768px) {
             .header-inner { padding: 18px 24px; }
@@ -220,6 +262,16 @@
             .article-hero-image { padding: 0 24px; }
             .article-body { padding: 40px 24px 80px; }
             .project-reference { grid-template-columns: 1fr; padding: 28px; }
+            .project-hero { height: 50vh; min-height: 360px; }
+            .project-hero-overlay { padding: 24px; }
+            .project-data { padding: 40px 24px; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+            .project-gallery { padding: 48px 24px; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .gallery-grid img.wide { grid-column: span 1; aspect-ratio: 16/9; }
+            .project-tech { padding: 48px 24px; }
+            .project-tech-grid { grid-template-columns: 1fr; gap: 32px; }
+            .project-nav { grid-template-columns: 1fr; }
+            .project-nav-card { aspect-ratio: 16/9; }
             .comparison-table td, .comparison-table th { padding: 10px 8px; font-size: 13px; }
             footer { padding: 24px; }
             .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
@@ -255,13 +307,13 @@
     <section class="section" id="proyectos">
         <div class="section-header"><p class="section-label">Obras y Proyectos</p><h2 class="section-title">Trabajos seleccionados</h2></div>
         <div class="projects-grid">
-            <div class="project-card featured" data-delay="0"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1400&q=80" alt="Casa en el Campo"><div class="project-overlay"><div class="project-info"><h3>Casa en el Campo</h3><p>Vivienda unifamiliar · 2023</p></div></div></div>
-            <div class="project-card" data-delay="100"><img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80" alt="Tahula"><div class="project-overlay"><div class="project-info"><h3>Tahula Traveler Home</h3><p>Vivienda · 2022</p></div></div></div>
-            <div class="project-card" data-delay="200"><img src="https://images.unsplash.com/photo-1600563438938-a9a27216b4f5?w=800&q=80" alt="Diluted House"><div class="project-overlay"><div class="project-info"><h3>Diluted House</h3><p>Vivienda unifamiliar · 2022</p></div></div></div>
-            <div class="project-card" data-delay="100"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=80" alt="Cafetería"><div class="project-overlay"><div class="project-info"><h3>Cafetería</h3><p>Diseño de interiores · Infografías</p></div></div></div>
-            <div class="project-card" data-delay="200"><img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&q=80" alt="Vivienda"><div class="project-overlay"><div class="project-info"><h3>Vivienda Unifamiliar</h3><p>Residencial · 2021</p></div></div></div>
-            <div class="project-card" data-delay="100"><img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=800&q=80" alt="Casa JJR"><div class="project-overlay"><div class="project-info"><h3>Casa JJR</h3><p>Vivienda unifamiliar · 2020</p></div></div></div>
-            <div class="project-card" data-delay="200"><img src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=800&q=80" alt="Casa 1118"><div class="project-overlay"><div class="project-info"><h3>Casa 1118</h3><p>Vivienda unifamiliar · 2019</p></div></div></div>
+            <div class="project-card featured" data-delay="0" data-nav="proj1"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1400&q=80" alt="Casa en el Campo"><div class="project-overlay"><div class="project-info"><h3>Casa en el Campo</h3><p>Vivienda unifamiliar · 2023</p></div></div></div>
+            <div class="project-card" data-delay="100" data-nav="proj2"><img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80" alt="Tahula"><div class="project-overlay"><div class="project-info"><h3>Tahula Traveler Home</h3><p>Vivienda · 2022</p></div></div></div>
+            <div class="project-card" data-delay="200" data-nav="proj3"><img src="https://images.unsplash.com/photo-1600563438938-a9a27216b4f5?w=800&q=80" alt="Diluted House"><div class="project-overlay"><div class="project-info"><h3>Diluted House</h3><p>Vivienda unifamiliar · 2022</p></div></div></div>
+            <div class="project-card" data-delay="100" data-nav="proj4"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=80" alt="Cafetería"><div class="project-overlay"><div class="project-info"><h3>Cafetería</h3><p>Diseño de interiores · Infografías</p></div></div></div>
+            <div class="project-card" data-delay="200" data-nav="proj5"><img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&q=80" alt="Vivienda"><div class="project-overlay"><div class="project-info"><h3>Vivienda Unifamiliar</h3><p>Residencial · 2021</p></div></div></div>
+            <div class="project-card" data-delay="100" data-nav="proj6"><img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=800&q=80" alt="Casa JJR"><div class="project-overlay"><div class="project-info"><h3>Casa JJR</h3><p>Vivienda unifamiliar · 2020</p></div></div></div>
+            <div class="project-card" data-delay="200" data-nav="proj7"><img src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=800&q=80" alt="Casa 1118"><div class="project-overlay"><div class="project-info"><h3>Casa 1118</h3><p>Vivienda unifamiliar · 2019</p></div></div></div>
         </div>
     </section>
     <section class="section about-section" id="estudio">
@@ -333,7 +385,7 @@
         <h2>La pregunta del coste</h2>
         <p>Una casa modular no es necesariamente más barata. Lo que sí es más predecible. Los sobrecostes en obra tradicional rondan el 10-20%. En modular, ese margen se reduce al 2-5%.</p>
         <p>Referencia: entre <strong>1.200 y 1.800 €/m²</strong> de ejecución material, sin parcela ni licencias.</p>
-        <div class="project-reference"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80" alt="Casa en el Campo"><div class="project-reference-text"><p class="ref-label">Proyecto destacado</p><h4>Casa en el Campo</h4><p>Aplicamos principios de diseño modular para resolver una vivienda que dialoga con el paisaje rural murciano. La optimización de la estructura permitió reducir plazos sin renunciar a la espacialidad.</p><a class="project-link" data-nav="home" data-scroll="proyectos">Ver proyecto →</a></div></div>
+        <div class="project-reference"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80" alt="Casa en el Campo"><div class="project-reference-text"><p class="ref-label">Proyecto destacado</p><h4>Casa en el Campo</h4><p>Aplicamos principios de diseño modular para resolver una vivienda que dialoga con el paisaje rural murciano. La optimización de la estructura permitió reducir plazos sin renunciar a la espacialidad.</p><a class="project-link" data-nav="proj1">Ver proyecto →</a></div></div>
         <h2>¿Para quién tiene sentido?</h2>
         <p>Para quien valora tres cosas: <strong>control del presupuesto, certeza en plazos y calidad constructiva contrastable</strong>.</p>
         <blockquote><p>Lo modular no es un atajo. Es un camino diferente hacia el mismo destino: una casa bien pensada y bien construida.</p></blockquote>
@@ -381,7 +433,7 @@
         <p>Caminos estrechos o pendientes pronunciadas dificultan el acceso de los módulos.</p>
         <h3>Ampliaciones futuras</h3>
         <p>La integración de nuevos elementos estructurales es más directa en construcción convencional.</p>
-        <div class="project-reference"><img src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=600&q=80" alt="Casa 1118"><div class="project-reference-text"><p class="ref-label">Proyecto destacado</p><h4>Casa 1118</h4><p>Nuestra vivienda-laboratorio. Testeamos en primera persona las diferencias entre sistemas constructivos. Habitar lo que diseñas es el mejor aprendizaje para asesorar a clientes.</p><a class="project-link" data-nav="home" data-scroll="proyectos">Ver proyecto →</a></div></div>
+        <div class="project-reference"><img src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=600&q=80" alt="Casa 1118"><div class="project-reference-text"><p class="ref-label">Proyecto destacado</p><h4>Casa 1118</h4><p>Nuestra vivienda-laboratorio. Testeamos en primera persona las diferencias entre sistemas constructivos. Habitar lo que diseñas es el mejor aprendizaje para asesorar a clientes.</p><a class="project-link" data-nav="proj7">Ver proyecto →</a></div></div>
         <blockquote><p>El mejor sistema constructivo es el que se elige sabiendo exactamente por qué se elige.</p></blockquote>
         <div class="divider"></div>
         <div class="article-cta"><p>¿Necesitas ayuda para decidir qué sistema se adapta a tu parcela?</p><a data-nav="home" data-scroll="contacto">Solicitar consulta</a></div>
@@ -419,13 +471,440 @@
         <p>Factibles haciendo que varios módulos trabajen solidariamente, pero requiere ingeniería más cuidadosa.</p>
         <h3>Formas no ortogonales</h3>
         <p>Posibles pero encarecen la fabricación. Conviene valorar si lo modular sigue siendo la mejor opción.</p>
-        <div class="project-reference"><img src="https://images.unsplash.com/photo-1600563438938-a9a27216b4f5?w=600&q=80" alt="Diluted House"><div class="project-reference-text"><p class="ref-label">Proyecto destacado</p><h4>Diluted House</h4><p>Personalización total compatible con racionalidad constructiva. La vivienda «diluye» los límites entre interior y exterior con grandes paños de vidrio. Nada se parece a un catálogo.</p><a class="project-link" data-nav="home" data-scroll="proyectos">Ver proyecto →</a></div></div>
+        <div class="project-reference"><img src="https://images.unsplash.com/photo-1600563438938-a9a27216b4f5?w=600&q=80" alt="Diluted House"><div class="project-reference-text"><p class="ref-label">Proyecto destacado</p><h4>Diluted House</h4><p>Personalización total compatible con racionalidad constructiva. La vivienda «diluye» los límites entre interior y exterior con grandes paños de vidrio. Nada se parece a un catálogo.</p><a class="project-link" data-nav="proj3">Ver proyecto →</a></div></div>
         <h2>El papel del arquitecto</h2>
         <p><strong>La calidad del proyecto es más determinante que en una obra convencional.</strong> No hay margen para la improvisación. Eso eleva la exigencia del diseño, pero también el resultado.</p>
         <blockquote><p>En arquitectura modular, el proyecto es la obra. Lo que se dibuja es, literalmente, lo que se construye.</p></blockquote>
         <div class="divider"></div>
         <div class="article-cta"><p>¿Tienes una parcela y una idea?<br>Es todo lo que necesitamos para empezar.</p><a data-nav="home" data-scroll="contacto">Cuéntanos tu proyecto</a></div>
     </article>
+</div>
+
+<!-- ═══════════════ PROJ 1 — Casa en el Campo ═══════════════ -->
+<div class="view" id="v-proj1">
+    <div class="project-hero">
+        <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1400&q=80" alt="Casa en el Campo">
+        <div class="project-hero-overlay">
+            <a class="back-link" data-nav="home" data-scroll="proyectos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Proyectos</a>
+            <p class="project-hero-type">Vivienda unifamiliar</p>
+            <h1>Casa en el Campo</h1>
+        </div>
+    </div>
+    <div class="project-data">
+        <div class="project-data-item"><p class="project-data-label">Ubicación</p><p class="project-data-value">Abanilla, Murcia</p></div>
+        <div class="project-data-item"><p class="project-data-label">Superficie</p><p class="project-data-value">280 m²</p></div>
+        <div class="project-data-item"><p class="project-data-label">Año</p><p class="project-data-value">2023</p></div>
+        <div class="project-data-item"><p class="project-data-label">Tipología</p><p class="project-data-value">Vivienda unifamiliar</p></div>
+        <div class="project-data-item"><p class="project-data-label">Estado</p><p class="project-data-value">Construido</p></div>
+    </div>
+    <article class="article-body">
+        <h2>Habitar el paisaje</h2>
+        <p>Casa en el Campo nace de la voluntad de integrar la arquitectura en el territorio agrícola de Abanilla. El proyecto plantea una vivienda de geometría limpia que se posa sobre el terreno sin imponerse, dialogando con las preexistencias del entorno rural murciano.</p>
+        <p>La orientación de la pieza principal responde a un estudio pormenorizado de soleamiento y vientos dominantes, garantizando confort pasivo durante todo el año. Los grandes paños acristalados enmarcan vistas al campo, difuminando la frontera entre interior y exterior.</p>
+        <blockquote><p>La mejor arquitectura es la que desaparece en el paisaje para luego revelarse en la experiencia de habitarla.</p></blockquote>
+        <p>El programa se organiza en dos volúmenes articulados por un porche central: la zona de día orientada al sur y la zona de noche hacia el este, buscando la luz de la mañana en los dormitorios.</p>
+    </article>
+    <div class="project-gallery">
+        <h2>Galería</h2>
+        <div class="gallery-grid">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Exterior" loading="lazy" data-delay="0">
+            <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80" alt="Interior salón" loading="lazy" data-delay="100">
+            <img class="wide" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1400&q=80" alt="Vista panorámica" loading="lazy" data-delay="0">
+            <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&q=80" alt="Cocina" loading="lazy" data-delay="0">
+            <img src="https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&q=80" alt="Dormitorio" loading="lazy" data-delay="100">
+            <img class="wide" src="https://images.unsplash.com/photo-1600047509782-20d39509f26d?w=1400&q=80" alt="Terraza" loading="lazy" data-delay="0">
+        </div>
+    </div>
+    <div class="project-tech">
+        <h2>Detalles constructivos</h2>
+        <div class="project-tech-grid">
+            <div class="project-tech-text">
+                <p>La estructura combina cimentación de hormigón armado con un sistema de pórticos metálicos que permiten grandes luces y voladizos generosos. La envolvente se resuelve con fachada ventilada de piedra natural local, garantizando inercia térmica y mínimo mantenimiento.</p>
+                <p>Las instalaciones incluyen aerotermia, suelo radiante y una cubierta fotovoltaica de 6 kWp que cubre el 70% del consumo anual estimado.</p>
+            </div>
+            <div class="project-tech-list">
+                <dl>
+                    <dt>Estructura</dt><dd>Pórticos metálicos HEB/IPE</dd>
+                    <dt>Cerramientos</dt><dd>Fachada ventilada piedra natural</dd>
+                    <dt>Cubierta</dt><dd>Plana invertida con grava</dd>
+                    <dt>Carpintería</dt><dd>Aluminio RPT con rotura de puente térmico</dd>
+                    <dt>Climatización</dt><dd>Aerotermia + suelo radiante</dd>
+                    <dt>Energía</dt><dd>Fotovoltaica 6 kWp</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="article-cta"><p>¿Tienes una parcela en entorno rural?</p><a data-nav="home" data-scroll="contacto">Contactar con el estudio</a></div>
+    <div class="project-nav">
+        <div class="project-nav-card" data-nav="proj7" data-delay="0"><img src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=800&q=80" alt="Casa 1118"><div class="project-nav-card-overlay"><p class="project-nav-label">← Anterior</p><h3>Casa 1118</h3></div></div>
+        <div class="project-nav-card" data-nav="proj2" data-delay="100"><img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80" alt="Tahula Traveler Home"><div class="project-nav-card-overlay"><p class="project-nav-label">Siguiente →</p><h3>Tahula Traveler Home</h3></div></div>
+    </div>
+</div>
+
+<!-- ═══════════════ PROJ 2 — Tahula Traveler Home ═══════════════ -->
+<div class="view" id="v-proj2">
+    <div class="project-hero">
+        <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1400&q=80" alt="Tahula Traveler Home">
+        <div class="project-hero-overlay">
+            <a class="back-link" data-nav="home" data-scroll="proyectos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Proyectos</a>
+            <p class="project-hero-type">Vivienda vacacional</p>
+            <h1>Tahula Traveler Home</h1>
+        </div>
+    </div>
+    <div class="project-data">
+        <div class="project-data-item"><p class="project-data-label">Ubicación</p><p class="project-data-value">Mazarrón, Murcia</p></div>
+        <div class="project-data-item"><p class="project-data-label">Superficie</p><p class="project-data-value">95 m²</p></div>
+        <div class="project-data-item"><p class="project-data-label">Año</p><p class="project-data-value">2022</p></div>
+        <div class="project-data-item"><p class="project-data-label">Tipología</p><p class="project-data-value">Vivienda vacacional</p></div>
+        <div class="project-data-item"><p class="project-data-label">Estado</p><p class="project-data-value">Construido</p></div>
+    </div>
+    <article class="article-body">
+        <h2>La escala justa</h2>
+        <p>Tahula Traveler Home es un ejercicio de optimización espacial. Con apenas 95 m², el proyecto demuestra que una vivienda vacacional puede ofrecer todas las prestaciones de confort sin recurrir a la superficie como argumento.</p>
+        <p>La planta se organiza en torno a un espacio central de estar-comedor-cocina completamente abierto al exterior. Dos dormitorios compactos y un baño completan el programa con una economía de medios que es, en sí misma, un acto de diseño.</p>
+        <blockquote><p>Menos superficie no significa menos arquitectura. Significa más precisión en cada decisión.</p></blockquote>
+        <p>La proximidad al mar condiciona la elección de materiales: acabados resistentes a la salinidad, carpinterías de alta estanqueidad y una paleta cromática que dialoga con el paisaje costero de Mazarrón.</p>
+    </article>
+    <div class="project-gallery">
+        <h2>Galería</h2>
+        <div class="gallery-grid">
+            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Fachada principal" loading="lazy" data-delay="0">
+            <img src="https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?w=800&q=80" alt="Interior" loading="lazy" data-delay="100">
+            <img class="wide" src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=1400&q=80" alt="Vista general" loading="lazy" data-delay="0">
+            <img src="https://images.unsplash.com/photo-1600585153490-76fb20a32601?w=800&q=80" alt="Terraza" loading="lazy" data-delay="0">
+            <img src="https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&q=80" alt="Dormitorio" loading="lazy" data-delay="100">
+            <img class="wide" src="https://images.unsplash.com/photo-1600047509358-9dc75507daeb?w=1400&q=80" alt="Entorno" loading="lazy" data-delay="0">
+        </div>
+    </div>
+    <div class="project-tech">
+        <h2>Detalles constructivos</h2>
+        <div class="project-tech-grid">
+            <div class="project-tech-text">
+                <p>La estructura ligera de acero galvanizado permite una ejecución rápida y una huella mínima sobre la parcela. El aislamiento de alta densidad en cubierta y cerramientos asegura confort térmico en los meses de máximo calor.</p>
+                <p>El sistema constructivo se pensó desde el inicio para una eventual desmontabilidad, respetando la filosofía de mínimo impacto sobre el territorio.</p>
+            </div>
+            <div class="project-tech-list">
+                <dl>
+                    <dt>Estructura</dt><dd>Acero galvanizado ligero</dd>
+                    <dt>Cerramientos</dt><dd>Panel sándwich + acabado mineral</dd>
+                    <dt>Cubierta</dt><dd>Plana con aislamiento XPS 100mm</dd>
+                    <dt>Carpintería</dt><dd>PVC con triple junta</dd>
+                    <dt>Climatización</dt><dd>Bomba de calor aire-aire</dd>
+                    <dt>Energía</dt><dd>Preinstalación fotovoltaica</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="article-cta"><p>¿Buscas una vivienda vacacional eficiente?</p><a data-nav="home" data-scroll="contacto">Contactar con el estudio</a></div>
+    <div class="project-nav">
+        <div class="project-nav-card" data-nav="proj1" data-delay="0"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80" alt="Casa en el Campo"><div class="project-nav-card-overlay"><p class="project-nav-label">← Anterior</p><h3>Casa en el Campo</h3></div></div>
+        <div class="project-nav-card" data-nav="proj3" data-delay="100"><img src="https://images.unsplash.com/photo-1600563438938-a9a27216b4f5?w=800&q=80" alt="Diluted House"><div class="project-nav-card-overlay"><p class="project-nav-label">Siguiente →</p><h3>Diluted House</h3></div></div>
+    </div>
+</div>
+
+<!-- ═══════════════ PROJ 3 — Diluted House ═══════════════ -->
+<div class="view" id="v-proj3">
+    <div class="project-hero">
+        <img src="https://images.unsplash.com/photo-1600563438938-a9a27216b4f5?w=1400&q=80" alt="Diluted House">
+        <div class="project-hero-overlay">
+            <a class="back-link" data-nav="home" data-scroll="proyectos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Proyectos</a>
+            <p class="project-hero-type">Vivienda unifamiliar</p>
+            <h1>Diluted House</h1>
+        </div>
+    </div>
+    <div class="project-data">
+        <div class="project-data-item"><p class="project-data-label">Ubicación</p><p class="project-data-value">La Manga, Murcia</p></div>
+        <div class="project-data-item"><p class="project-data-label">Superficie</p><p class="project-data-value">220 m²</p></div>
+        <div class="project-data-item"><p class="project-data-label">Año</p><p class="project-data-value">2022</p></div>
+        <div class="project-data-item"><p class="project-data-label">Tipología</p><p class="project-data-value">Vivienda unifamiliar</p></div>
+        <div class="project-data-item"><p class="project-data-label">Estado</p><p class="project-data-value">Construido</p></div>
+    </div>
+    <article class="article-body">
+        <h2>Diluir los límites</h2>
+        <p>Diluted House propone una vivienda donde la separación entre interior y exterior se vuelve ambigua. Grandes paños de vidrio de suelo a techo, porches profundos y una piscina que se integra visualmente en el salón configuran una experiencia espacial continua.</p>
+        <p>La ubicación en La Manga, entre el Mar Menor y el Mediterráneo, exigía una arquitectura que capturara las vistas sin exponerse a la agresividad del clima costero. La respuesta fue una planta en L que abraza un patio protegido del viento de levante.</p>
+        <blockquote><p>Diluir no es eliminar. Es hacer que los límites dejen de percibirse como tales.</p></blockquote>
+        <p>El uso del blanco como material dominante no responde a un capricho estético sino a una estrategia bioclimática: maximizar la reflexión solar y reducir la ganancia térmica en verano.</p>
+    </article>
+    <div class="project-gallery">
+        <h2>Galería</h2>
+        <div class="gallery-grid">
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Exterior" loading="lazy" data-delay="0">
+            <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80" alt="Salón" loading="lazy" data-delay="100">
+            <img class="wide" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=80" alt="Vista panorámica" loading="lazy" data-delay="0">
+            <img src="https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?w=800&q=80" alt="Piscina" loading="lazy" data-delay="0">
+            <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&q=80" alt="Cocina" loading="lazy" data-delay="100">
+            <img class="wide" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&q=80" alt="Atardecer" loading="lazy" data-delay="0">
+        </div>
+    </div>
+    <div class="project-tech">
+        <h2>Detalles constructivos</h2>
+        <div class="project-tech-grid">
+            <div class="project-tech-text">
+                <p>La cercanía al mar obligó a seleccionar materiales con alta resistencia a la corrosión. La estructura de hormigón armado con tratamiento hidrófugo se complementa con carpinterías de aluminio lacado marino y vidrios bajo emisivos.</p>
+                <p>El sistema de climatización aprovecha la geotermia del terreno mediante una bomba de calor agua-agua, alcanzando una calificación energética A.</p>
+            </div>
+            <div class="project-tech-list">
+                <dl>
+                    <dt>Estructura</dt><dd>Hormigón armado HA-30</dd>
+                    <dt>Cerramientos</dt><dd>Bloque + SATE 80mm</dd>
+                    <dt>Cubierta</dt><dd>Plana transitable con gres</dd>
+                    <dt>Carpintería</dt><dd>Aluminio lacado marino</dd>
+                    <dt>Climatización</dt><dd>Geotermia + suelo radiante</dd>
+                    <dt>Energía</dt><dd>Fotovoltaica 8 kWp + batería</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="article-cta"><p>¿Tu parcela está cerca del mar?</p><a data-nav="home" data-scroll="contacto">Contactar con el estudio</a></div>
+    <div class="project-nav">
+        <div class="project-nav-card" data-nav="proj2" data-delay="0"><img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80" alt="Tahula Traveler Home"><div class="project-nav-card-overlay"><p class="project-nav-label">← Anterior</p><h3>Tahula Traveler Home</h3></div></div>
+        <div class="project-nav-card" data-nav="proj4" data-delay="100"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=80" alt="Cafetería"><div class="project-nav-card-overlay"><p class="project-nav-label">Siguiente →</p><h3>Cafetería</h3></div></div>
+    </div>
+</div>
+
+<!-- ═══════════════ PROJ 4 — Cafetería ═══════════════ -->
+<div class="view" id="v-proj4">
+    <div class="project-hero">
+        <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1400&q=80" alt="Cafetería">
+        <div class="project-hero-overlay">
+            <a class="back-link" data-nav="home" data-scroll="proyectos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Proyectos</a>
+            <p class="project-hero-type">Diseño de interiores</p>
+            <h1>Cafetería</h1>
+        </div>
+    </div>
+    <div class="project-data">
+        <div class="project-data-item"><p class="project-data-label">Ubicación</p><p class="project-data-value">Murcia Centro</p></div>
+        <div class="project-data-item"><p class="project-data-label">Superficie</p><p class="project-data-value">120 m²</p></div>
+        <div class="project-data-item"><p class="project-data-label">Año</p><p class="project-data-value">2023</p></div>
+        <div class="project-data-item"><p class="project-data-label">Tipología</p><p class="project-data-value">Diseño de interiores</p></div>
+        <div class="project-data-item"><p class="project-data-label">Estado</p><p class="project-data-value">Construido</p></div>
+    </div>
+    <article class="article-body">
+        <h2>Un interior que cuenta una historia</h2>
+        <p>El encargo consistía en transformar un local comercial en planta baja del centro de Murcia en una cafetería de especialidad. El reto: crear una atmósfera singular en un espacio alargado y profundo con un único frente de fachada.</p>
+        <p>La estrategia se basó en trabajar con la luz natural como material de proyecto. Un lucernario lineal en el tercio posterior del local introduce luz cenital que se filtra a través de una celosía de listones de roble, generando un juego de sombras cambiante a lo largo del día.</p>
+        <blockquote><p>En interiorismo, el espacio no se decora. Se construye con luz, materia y proporción.</p></blockquote>
+        <p>La paleta de materiales se reduce a tres: hormigón pulido en suelo, roble natural en mobiliario y barra, y microcemento gris en paramentos. La austeridad material se compensa con la riqueza espacial y lumínica.</p>
+    </article>
+    <div class="project-gallery">
+        <h2>Galería</h2>
+        <div class="gallery-grid">
+            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&q=80" alt="Interior general" loading="lazy" data-delay="0">
+            <img src="https://images.unsplash.com/photo-1559305616-3f99cd43e353?w=800&q=80" alt="Barra" loading="lazy" data-delay="100">
+            <img class="wide" src="https://images.unsplash.com/photo-1600210491369-e753d80a41f3?w=1400&q=80" alt="Vista panorámica" loading="lazy" data-delay="0">
+            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80" alt="Detalle mobiliario" loading="lazy" data-delay="0">
+            <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=800&q=80" alt="Iluminación" loading="lazy" data-delay="100">
+            <img class="wide" src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1400&q=80" alt="Fachada" loading="lazy" data-delay="0">
+        </div>
+    </div>
+    <div class="project-tech">
+        <h2>Detalles constructivos</h2>
+        <div class="project-tech-grid">
+            <div class="project-tech-text">
+                <p>La intervención respeta la estructura existente del local, añadiendo un falso techo técnico que oculta instalaciones y permite la integración del lucernario. Todo el mobiliario fue diseñado a medida y fabricado por carpinteros locales.</p>
+                <p>La instalación eléctrica se diseñó para permitir tres escenarios de iluminación diferentes según el momento del día: mañana, tarde y noche.</p>
+            </div>
+            <div class="project-tech-list">
+                <dl>
+                    <dt>Suelos</dt><dd>Hormigón pulido en masa</dd>
+                    <dt>Paramentos</dt><dd>Microcemento gris medio</dd>
+                    <dt>Mobiliario</dt><dd>Roble macizo a medida</dd>
+                    <dt>Iluminación</dt><dd>LED regulable 3 escenas</dd>
+                    <dt>Climatización</dt><dd>Conductos ocultos en falso techo</dd>
+                    <dt>Acústica</dt><dd>Paneles absorbentes en techo</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="article-cta"><p>¿Necesitas diseñar un espacio comercial?</p><a data-nav="home" data-scroll="contacto">Contactar con el estudio</a></div>
+    <div class="project-nav">
+        <div class="project-nav-card" data-nav="proj3" data-delay="0"><img src="https://images.unsplash.com/photo-1600563438938-a9a27216b4f5?w=800&q=80" alt="Diluted House"><div class="project-nav-card-overlay"><p class="project-nav-label">← Anterior</p><h3>Diluted House</h3></div></div>
+        <div class="project-nav-card" data-nav="proj5" data-delay="100"><img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&q=80" alt="Vivienda Unifamiliar"><div class="project-nav-card-overlay"><p class="project-nav-label">Siguiente →</p><h3>Vivienda Unifamiliar</h3></div></div>
+    </div>
+</div>
+
+<!-- ═══════════════ PROJ 5 — Vivienda Unifamiliar ═══════════════ -->
+<div class="view" id="v-proj5">
+    <div class="project-hero">
+        <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1400&q=80" alt="Vivienda Unifamiliar">
+        <div class="project-hero-overlay">
+            <a class="back-link" data-nav="home" data-scroll="proyectos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Proyectos</a>
+            <p class="project-hero-type">Residencial</p>
+            <h1>Vivienda Unifamiliar</h1>
+        </div>
+    </div>
+    <div class="project-data">
+        <div class="project-data-item"><p class="project-data-label">Ubicación</p><p class="project-data-value">Molina de Segura</p></div>
+        <div class="project-data-item"><p class="project-data-label">Superficie</p><p class="project-data-value">190 m²</p></div>
+        <div class="project-data-item"><p class="project-data-label">Año</p><p class="project-data-value">2021</p></div>
+        <div class="project-data-item"><p class="project-data-label">Tipología</p><p class="project-data-value">Residencial</p></div>
+        <div class="project-data-item"><p class="project-data-label">Estado</p><p class="project-data-value">Construido</p></div>
+    </div>
+    <article class="article-body">
+        <h2>Racionalidad y calidez</h2>
+        <p>Esta vivienda en Molina de Segura responde a un programa clásico —cuatro dormitorios, zona de día generosa, garaje— resuelto con un lenguaje contemporáneo que prioriza la funcionalidad sin renunciar a la expresividad arquitectónica.</p>
+        <p>La planta se desarrolla en dos niveles: un zócalo semienterrado que aloja garaje y zona de servicio, y una planta principal elevada que gana vistas y privacidad respecto a la calle. Esta sección escalonada permite que la cubierta ajardinada del nivel inferior se convierta en terraza del nivel superior.</p>
+        <blockquote><p>La buena arquitectura residencial no necesita gestos espectaculares. Necesita que cada espacio funcione exactamente como se espera.</p></blockquote>
+        <p>La fachada de ladrillo cara vista en tono claro ancla la vivienda a la tradición constructiva murciana, mientras las líneas horizontales de los vuelos y las franjas de vidrio aportan ligereza al conjunto.</p>
+    </article>
+    <div class="project-gallery">
+        <h2>Galería</h2>
+        <div class="gallery-grid">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Fachada" loading="lazy" data-delay="0">
+            <img src="https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?w=800&q=80" alt="Salón" loading="lazy" data-delay="100">
+            <img class="wide" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&q=80" alt="Exterior general" loading="lazy" data-delay="0">
+            <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&q=80" alt="Cocina" loading="lazy" data-delay="0">
+            <img src="https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&q=80" alt="Dormitorio" loading="lazy" data-delay="100">
+            <img class="wide" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1400&q=80" alt="Jardín" loading="lazy" data-delay="0">
+        </div>
+    </div>
+    <div class="project-tech">
+        <h2>Detalles constructivos</h2>
+        <div class="project-tech-grid">
+            <div class="project-tech-text">
+                <p>Construcción convencional con estructura de hormigón armado y forjados bidireccionales. La cimentación mediante losa armada resuelve la heterogeneidad del terreno sin sobrecostes en pilotaje.</p>
+                <p>La envolvente cumple con holgura los requisitos del CTE DB-HE, incorporando aislamiento SATE de 100mm en fachada y cubierta invertida con XPS de 120mm.</p>
+            </div>
+            <div class="project-tech-list">
+                <dl>
+                    <dt>Estructura</dt><dd>Hormigón armado convencional</dd>
+                    <dt>Cerramientos</dt><dd>Ladrillo cara vista + SATE 100mm</dd>
+                    <dt>Cubierta</dt><dd>Invertida ajardinada + plana grava</dd>
+                    <dt>Carpintería</dt><dd>Aluminio RPT con vidrio bajo emisivo</dd>
+                    <dt>Climatización</dt><dd>Aerotermia + fancoils</dd>
+                    <dt>Energía</dt><dd>Fotovoltaica 4.5 kWp</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="article-cta"><p>¿Quieres construir tu vivienda?</p><a data-nav="home" data-scroll="contacto">Contactar con el estudio</a></div>
+    <div class="project-nav">
+        <div class="project-nav-card" data-nav="proj4" data-delay="0"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=80" alt="Cafetería"><div class="project-nav-card-overlay"><p class="project-nav-label">← Anterior</p><h3>Cafetería</h3></div></div>
+        <div class="project-nav-card" data-nav="proj6" data-delay="100"><img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=800&q=80" alt="Casa JJR"><div class="project-nav-card-overlay"><p class="project-nav-label">Siguiente →</p><h3>Casa JJR</h3></div></div>
+    </div>
+</div>
+
+<!-- ═══════════════ PROJ 6 — Casa JJR ═══════════════ -->
+<div class="view" id="v-proj6">
+    <div class="project-hero">
+        <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=1400&q=80" alt="Casa JJR">
+        <div class="project-hero-overlay">
+            <a class="back-link" data-nav="home" data-scroll="proyectos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Proyectos</a>
+            <p class="project-hero-type">Vivienda unifamiliar</p>
+            <h1>Casa JJR</h1>
+        </div>
+    </div>
+    <div class="project-data">
+        <div class="project-data-item"><p class="project-data-label">Ubicación</p><p class="project-data-value">Los Alcázares, Murcia</p></div>
+        <div class="project-data-item"><p class="project-data-label">Superficie</p><p class="project-data-value">160 m²</p></div>
+        <div class="project-data-item"><p class="project-data-label">Año</p><p class="project-data-value">2020</p></div>
+        <div class="project-data-item"><p class="project-data-label">Tipología</p><p class="project-data-value">Vivienda unifamiliar</p></div>
+        <div class="project-data-item"><p class="project-data-label">Estado</p><p class="project-data-value">Construido</p></div>
+    </div>
+    <article class="article-body">
+        <h2>Arquitectura del mediterráneo</h2>
+        <p>Casa JJR se sitúa en una parcela residencial de Los Alcázares, a pocos minutos del Mar Menor. El proyecto reinterpreta la vivienda mediterránea tradicional: volúmenes blancos, cubiertas planas, relación directa con el exterior y una gestión inteligente de la luz y la ventilación.</p>
+        <p>La planta se organiza en forma de C alrededor de un patio-piscina que funciona como corazón de la vivienda. Todas las estancias principales vuelcan hacia este espacio exterior protegido, que actúa como regulador climático natural.</p>
+        <blockquote><p>El patio es la habitación más importante de una casa mediterránea. Es donde la vida sucede de verdad.</p></blockquote>
+        <p>El proyecto prestó especial atención a la orientación: la zona de día mira al sur y al patio, mientras los dormitorios se orientan al este. La fachada norte, ciega y protectora, resguarda del viento y garantiza privacidad.</p>
+    </article>
+    <div class="project-gallery">
+        <h2>Galería</h2>
+        <div class="gallery-grid">
+            <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80" alt="Patio interior" loading="lazy" data-delay="0">
+            <img src="https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?w=800&q=80" alt="Salón" loading="lazy" data-delay="100">
+            <img class="wide" src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=1400&q=80" alt="Fachada sur" loading="lazy" data-delay="0">
+            <img src="https://images.unsplash.com/photo-1600585153490-76fb20a32601?w=800&q=80" alt="Piscina" loading="lazy" data-delay="0">
+            <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&q=80" alt="Cocina" loading="lazy" data-delay="100">
+            <img class="wide" src="https://images.unsplash.com/photo-1600047509782-20d39509f26d?w=1400&q=80" alt="Terraza" loading="lazy" data-delay="0">
+        </div>
+    </div>
+    <div class="project-tech">
+        <h2>Detalles constructivos</h2>
+        <div class="project-tech-grid">
+            <div class="project-tech-text">
+                <p>Construcción tradicional optimizada con estructura porticada de hormigón armado. Los cerramientos de doble hoja con cámara de aire y aislamiento insuflado permiten un excelente comportamiento térmico con un espesor contenido.</p>
+                <p>El patio incorpora vegetación autóctona de bajo consumo hídrico: buganvillas, jazmines y lavanda, que aportan sombra, fragancia y color sin necesidad de riego intensivo.</p>
+            </div>
+            <div class="project-tech-list">
+                <dl>
+                    <dt>Estructura</dt><dd>Hormigón armado porticado</dd>
+                    <dt>Cerramientos</dt><dd>Doble hoja cerámica + insuflado</dd>
+                    <dt>Cubierta</dt><dd>Plana no transitable con grava</dd>
+                    <dt>Carpintería</dt><dd>Aluminio lacado blanco RPT</dd>
+                    <dt>Climatización</dt><dd>Aerotermia + conductos</dd>
+                    <dt>Energía</dt><dd>Fotovoltaica 3 kWp</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="article-cta"><p>¿Tienes una parcela en la costa murciana?</p><a data-nav="home" data-scroll="contacto">Contactar con el estudio</a></div>
+    <div class="project-nav">
+        <div class="project-nav-card" data-nav="proj5" data-delay="0"><img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&q=80" alt="Vivienda Unifamiliar"><div class="project-nav-card-overlay"><p class="project-nav-label">← Anterior</p><h3>Vivienda Unifamiliar</h3></div></div>
+        <div class="project-nav-card" data-nav="proj7" data-delay="100"><img src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=800&q=80" alt="Casa 1118"><div class="project-nav-card-overlay"><p class="project-nav-label">Siguiente →</p><h3>Casa 1118</h3></div></div>
+    </div>
+</div>
+
+<!-- ═══════════════ PROJ 7 — Casa 1118 ═══════════════ -->
+<div class="view" id="v-proj7">
+    <div class="project-hero">
+        <img src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=1400&q=80" alt="Casa 1118">
+        <div class="project-hero-overlay">
+            <a class="back-link" data-nav="home" data-scroll="proyectos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Proyectos</a>
+            <p class="project-hero-type">Vivienda unifamiliar</p>
+            <h1>Casa 1118</h1>
+        </div>
+    </div>
+    <div class="project-data">
+        <div class="project-data-item"><p class="project-data-label">Ubicación</p><p class="project-data-value">Murcia</p></div>
+        <div class="project-data-item"><p class="project-data-label">Superficie</p><p class="project-data-value">140 m²</p></div>
+        <div class="project-data-item"><p class="project-data-label">Año</p><p class="project-data-value">2019</p></div>
+        <div class="project-data-item"><p class="project-data-label">Tipología</p><p class="project-data-value">Vivienda unifamiliar</p></div>
+        <div class="project-data-item"><p class="project-data-label">Estado</p><p class="project-data-value">Construido</p></div>
+    </div>
+    <article class="article-body">
+        <h2>Nuestra casa-laboratorio</h2>
+        <p>Casa 1118 es el proyecto más personal del estudio: la vivienda propia de sus fundadores. Diseñada, construida y habitada por el equipo, funciona como laboratorio de ideas donde se testean materiales, soluciones técnicas y estrategias espaciales antes de proponerlas a los clientes.</p>
+        <p>Con 140 m² en una única planta, el proyecto demuestra que la superficie no es el factor determinante de la calidad espacial. Una sección estudiada, proporciones equilibradas y una relación inteligente con el jardín compensan lo compacto del programa.</p>
+        <blockquote><p>Habitar lo que diseñas es la forma más honesta de aprender arquitectura. Cada error se convierte en lección diaria.</p></blockquote>
+        <p>La vivienda funciona como carta de presentación del estudio: quienes la visitan entienden de inmediato los valores del equipo. Cada rincón explica una decisión de proyecto, cada detalle tiene un porqué.</p>
+    </article>
+    <div class="project-gallery">
+        <h2>Galería</h2>
+        <div class="gallery-grid">
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Exterior" loading="lazy" data-delay="0">
+            <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80" alt="Salón" loading="lazy" data-delay="100">
+            <img class="wide" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=80" alt="Fachada completa" loading="lazy" data-delay="0">
+            <img src="https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&q=80" alt="Dormitorio" loading="lazy" data-delay="0">
+            <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&q=80" alt="Cocina" loading="lazy" data-delay="100">
+            <img class="wide" src="https://images.unsplash.com/photo-1600047509782-20d39509f26d?w=1400&q=80" alt="Jardín" loading="lazy" data-delay="0">
+        </div>
+    </div>
+    <div class="project-tech">
+        <h2>Detalles constructivos</h2>
+        <div class="project-tech-grid">
+            <div class="project-tech-text">
+                <p>La vivienda se construyó con un sistema mixto: cimentación y estructura de hormigón armado con cerramientos de entramado ligero de madera. Esta combinación ofrece rapidez de montaje, excelente aislamiento y una huella de carbono reducida.</p>
+                <p>Casa 1118 fue el primer proyecto del estudio en incorporar monitorización energética en tiempo real, lo que ha permitido verificar y optimizar el consumo durante los años de uso.</p>
+            </div>
+            <div class="project-tech-list">
+                <dl>
+                    <dt>Estructura</dt><dd>Mixta: hormigón + entramado madera</dd>
+                    <dt>Cerramientos</dt><dd>Entramado ligero + lana mineral 140mm</dd>
+                    <dt>Cubierta</dt><dd>Plana vegetal extensiva</dd>
+                    <dt>Carpintería</dt><dd>Madera-aluminio con triple vidrio</dd>
+                    <dt>Climatización</dt><dd>Aerotermia + suelo radiante</dd>
+                    <dt>Energía</dt><dd>Fotovoltaica 5 kWp + monitorización</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="article-cta"><p>¿Quieres conocer nuestra forma de trabajar?</p><a data-nav="home" data-scroll="contacto">Contactar con el estudio</a></div>
+    <div class="project-nav">
+        <div class="project-nav-card" data-nav="proj6" data-delay="0"><img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=800&q=80" alt="Casa JJR"><div class="project-nav-card-overlay"><p class="project-nav-label">← Anterior</p><h3>Casa JJR</h3></div></div>
+        <div class="project-nav-card" data-nav="proj1" data-delay="100"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80" alt="Casa en el Campo"><div class="project-nav-card-overlay"><p class="project-nav-label">Siguiente →</p><h3>Casa en el Campo</h3></div></div>
+    </div>
 </div>
 
 <!-- FOOTER -->
@@ -466,7 +945,7 @@
             cur = v;
             history.pushState(null,'', v==='home'?'#':'#'+v);
             reObs();
-            const t={home:'1118 Estudio — Arquitectura Modular',blog:'Blog — 1118 Estudio',art1:'¿Qué es una casa modular? — 1118 Estudio',art2:'Modular vs Tradicional — 1118 Estudio',art3:'Personalizar casa modular — 1118 Estudio'};
+            const t={home:'1118 Estudio — Arquitectura Modular',blog:'Blog — 1118 Estudio',art1:'¿Qué es una casa modular? — 1118 Estudio',art2:'Modular vs Tradicional — 1118 Estudio',art3:'Personalizar casa modular — 1118 Estudio',proj1:'Casa en el Campo — 1118 Estudio',proj2:'Tahula Traveler Home — 1118 Estudio',proj3:'Diluted House — 1118 Estudio',proj4:'Cafetería — 1118 Estudio',proj5:'Vivienda Unifamiliar — 1118 Estudio',proj6:'Casa JJR — 1118 Estudio',proj7:'Casa 1118 — 1118 Estudio'};
             document.title=t[v]||t.home;
         },280);
     }
@@ -485,7 +964,7 @@
         obs=new IntersectionObserver(en=>{
             en.forEach(e=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'), parseInt(e.target.dataset.delay||0)); obs.unobserve(e.target); }});
         },{threshold:0.15, rootMargin:'0px 0px -50px 0px'});
-        document.querySelectorAll('.section-header,.project-card,.about-image,.about-text,.service-item,.team-member,.blog-card').forEach(el=>{ if(!el.classList.contains('visible')) obs.observe(el); });
+        document.querySelectorAll('.section-header,.project-card,.about-image,.about-text,.service-item,.team-member,.blog-card,.gallery-grid img,.project-nav-card').forEach(el=>{ if(!el.classList.contains('visible')) obs.observe(el); });
     }
     reObs();
 
