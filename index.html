@@ -258,7 +258,7 @@
 
         /* WIZARD — Imagina tu proyecto */
         .wizard-container { min-height: 100vh; background: var(--black); color: var(--white); position: relative; padding-top: 80px; }
-        .wizard-progress { position: absolute; top: 0; left: 0; height: 3px; background: var(--accent); z-index: 10; transition: width 0.4s ease; }
+        .wizard-progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--accent); z-index: 1001; transition: width 0.4s ease; }
         .wizard-nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 48px; }
         .wizard-back { background: none; border: none; color: var(--soft-on-dark); font-family: var(--font-sans); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: color 0.3s; display: flex; align-items: center; gap: 8px; }
         .wizard-back:hover { color: var(--white); }
@@ -375,6 +375,8 @@
             .wizard-contact-form { grid-template-columns: 1fr; }
             .wizard-contact-form .full-width { grid-column: span 1; }
             .wizard-contact-form button { grid-column: span 1; }
+            .nav-cta { border-color: var(--near-black) !important; color: var(--near-black) !important; }
+            .nav-cta:hover { background: var(--near-black) !important; color: var(--white) !important; }
         }
     </style>
 </head>
@@ -1221,7 +1223,7 @@
     function go(v, sc) {
         mt.classList.remove('open'); nav.classList.remove('open');
         if (v === cur && sc) { const el = document.getElementById(sc); if(el) window.scrollTo({top: el.offsetTop-80, behavior:'smooth'}); return; }
-        if (v === cur && !sc) return;
+        if (v === cur && !sc) { if(v==='wizard') wizReset(); return; }
         const old = document.getElementById('v-'+cur);
         old.classList.remove('show');
         setTimeout(()=>{
@@ -1291,6 +1293,7 @@
         var next = isSuccess ? document.getElementById('wizStepSuccess') : document.getElementById('wizStep' + n);
         if (!next) return;
         allSteps.forEach(function(s) { s.classList.remove('active', 'show'); });
+        if (!instant) window.scrollTo(0, 0);
         if (instant) {
             next.style.transition = 'none';
             next.classList.add('active', 'show');
