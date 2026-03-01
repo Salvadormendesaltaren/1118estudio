@@ -306,8 +306,11 @@
         .wizard-contact-form button:hover { background: var(--white); color: var(--black); }
         .wizard-success-icon { width: 64px; height: 64px; border: 2px solid var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 32px; }
         .wizard-success-icon svg { width: 28px; height: 28px; stroke: var(--accent); }
-        .hero-cta { display: inline-block; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--white); border: 1px solid rgba(255,255,255,0.3); padding: 14px 36px; text-decoration: none; cursor: pointer; transition: background 0.3s, color 0.3s; font-weight: 500; margin-top: 28px; opacity: 0; transform: translateY(15px); animation: fadeUp 1s ease 1.6s forwards; }
-        .hero-cta:hover { background: var(--white); color: var(--black); }
+        .nav-cta { border: 1px solid rgba(255,255,255,0.35); padding: 8px 18px; letter-spacing: 2px !important; }
+        .nav-cta::after { display: none !important; }
+        .nav-cta:hover { background: var(--white); color: var(--black) !important; }
+        header.scrolled .nav-cta { border-color: var(--near-black); }
+        header.scrolled .nav-cta:hover { background: var(--near-black); color: var(--white) !important; }
 
         /* ANIMATIONS */
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
@@ -388,6 +391,7 @@
             <a data-nav="blog">Blog</a>
             <a data-nav="home" data-scroll="equipo">Equipo</a>
             <a data-nav="home" data-scroll="contacto">Contacto</a>
+            <a class="nav-cta" data-nav="wizard">Imagina tu proyecto</a>
         </nav>
     </div>
 </header>
@@ -398,7 +402,7 @@
         <video class="hero-video" autoplay muted loop playsinline>
             <source src="https://assets.mixkit.co/videos/24945/24945-720.mp4" type="video/mp4">
         </video>
-        <div class="hero-content"><h1>Arquitectura<br><em>esencial</em></h1><p class="hero-subtitle">Proyectos modulares a tu medida</p><div class="hero-line"></div><a class="hero-cta" data-nav="wizard">Imagina tu proyecto →</a></div>
+        <div class="hero-content"><h1>Arquitectura<br><em>esencial</em></h1><p class="hero-subtitle">Proyectos modulares a tu medida</p><div class="hero-line"></div></div>
         <div class="scroll-indicator"><span>Scroll</span><div class="scroll-line"></div></div>
     </section>
     <section class="section" id="proyectos">
