@@ -257,9 +257,9 @@
         .project-nav-card-overlay h3 { font-family: var(--font-serif); font-size: 24px; font-weight: 400; color: var(--white); }
 
         /* WIZARD — Imagina tu proyecto */
-        .wizard-container { min-height: 100vh; background: var(--black); color: var(--white); position: relative; padding-top: 80px; }
-        .wizard-progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--accent); z-index: 1001; transition: width 0.4s ease; }
-        .wizard-nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 48px; }
+        .wizard-container { min-height: 100vh; background: radial-gradient(ellipse at 50% 0%, rgba(30,30,28,1) 0%, var(--black) 70%); color: var(--white); position: relative; padding-top: 80px; }
+        .wizard-progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--accent); z-index: 1001; transition: width 0.4s ease; box-shadow: 0 0 12px rgba(126,102,54,0.5); }
+        .wizard-nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 48px; position: sticky; top: 80px; z-index: 5; }
         .wizard-back { background: none; border: none; color: var(--soft-on-dark); font-family: var(--font-sans); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: color 0.3s; display: flex; align-items: center; gap: 8px; }
         .wizard-back:hover { color: var(--white); }
         .wizard-back svg { width: 16px; height: 16px; }
@@ -271,23 +271,24 @@
         .wizard-step-title { font-family: var(--font-serif); font-size: clamp(24px,3.5vw,42px); font-weight: 400; color: var(--white); text-align: center; margin-bottom: 12px; }
         .wizard-step-subtitle { font-size: 14px; color: var(--soft-on-dark); text-align: center; margin-bottom: 48px; }
         .wizard-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 900px; width: 100%; }
-        .wizard-card { position: relative; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; border: 2px solid transparent; transition: border-color 0.4s ease; }
-        .wizard-card:hover { border-color: var(--accent); }
+        .wizard-card { position: relative; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; border: 2px solid transparent; border-radius: 6px; background: var(--near-black); transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease; }
+        .wizard-card:hover { border-color: var(--accent); box-shadow: 0 8px 32px rgba(126,102,54,0.2); transform: translateY(-3px); }
+        .wizard-card.wiz-selected { border-color: var(--accent); box-shadow: 0 0 24px rgba(126,102,54,0.3); transform: scale(0.97); }
         .wizard-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25,0.1,0.25,1); }
         .wizard-card:hover img { transform: scale(1.04); }
         .wizard-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,10,0.8) 0%, rgba(10,10,10,0.1) 60%); display: flex; align-items: flex-end; padding: 24px; }
         .wizard-card-label { font-family: var(--font-serif); font-size: 20px; color: var(--white); }
         .wizard-pill-group { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
-        .wizard-pill { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); color: var(--soft-on-dark); font-family: var(--font-sans); font-size: 13px; padding: 10px 20px; cursor: pointer; transition: all 0.3s; }
+        .wizard-pill { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); color: var(--soft-on-dark); font-family: var(--font-sans); font-size: 13px; padding: 12px 24px; border-radius: 100px; cursor: pointer; transition: all 0.3s; }
         .wizard-pill:hover { border-color: var(--accent); color: var(--white); }
-        .wizard-pill.selected { background: var(--accent); border-color: var(--accent); color: var(--white); }
+        .wizard-pill.selected { background: var(--accent); border-color: var(--accent); color: var(--white); box-shadow: 0 4px 16px rgba(126,102,54,0.3); }
         .wizard-field-group { max-width: 600px; width: 100%; margin-bottom: 24px; text-align: left; }
         .wizard-field-label { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--soft-on-dark); font-weight: 500; margin-bottom: 12px; }
         .wizard-input { width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: var(--white); font-family: var(--font-sans); font-size: 14px; padding: 14px 16px; outline: none; transition: border-color 0.3s; }
         .wizard-input::placeholder { color: rgba(255,255,255,0.3); }
-        .wizard-input:focus { border-color: var(--accent); }
-        .wizard-continue { display: inline-block; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: var(--white); font-family: var(--font-sans); font-size: 11px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; padding: 16px 36px; cursor: pointer; transition: all 0.3s; margin-top: 16px; }
-        .wizard-continue:hover { background: var(--white); color: var(--black); }
+        .wizard-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(126,102,54,0.15); }
+        .wizard-continue { display: inline-block; background: var(--accent); border: 1px solid var(--accent); color: var(--white); font-family: var(--font-sans); font-size: 11px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; padding: 16px 40px; cursor: pointer; transition: all 0.3s; margin-top: 16px; }
+        .wizard-continue:hover { background: var(--white); color: var(--black); border-color: var(--white); }
         .wizard-summary-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; max-width: 1000px; width: 100%; align-items: start; }
         .wizard-summary-card { position: relative; overflow: hidden; aspect-ratio: 3/4; display: flex; flex-direction: column; justify-content: flex-end; padding: 32px; }
         .wizard-summary-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -300,22 +301,28 @@
         .wizard-contact-form label { display: block; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--soft-on-dark); font-weight: 500; margin-bottom: 8px; }
         .wizard-contact-form input, .wizard-contact-form textarea { width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: var(--white); font-family: var(--font-sans); font-size: 14px; padding: 14px 16px; outline: none; transition: border-color 0.3s; }
         .wizard-contact-form input::placeholder, .wizard-contact-form textarea::placeholder { color: rgba(255,255,255,0.3); }
-        .wizard-contact-form input:focus, .wizard-contact-form textarea:focus { border-color: var(--accent); }
+        .wizard-contact-form input:focus, .wizard-contact-form textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(126,102,54,0.15); }
         .wizard-contact-form textarea { resize: vertical; min-height: 100px; }
-        .wizard-contact-form button { grid-column: span 2; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: var(--white); font-family: var(--font-sans); font-size: 11px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; padding: 16px 36px; cursor: pointer; transition: all 0.3s; }
-        .wizard-contact-form button:hover { background: var(--white); color: var(--black); }
-        .wizard-success-icon { width: 64px; height: 64px; border: 2px solid var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 32px; }
+        .wizard-contact-form button { grid-column: span 2; background: var(--accent); border: 1px solid var(--accent); color: var(--white); font-family: var(--font-sans); font-size: 11px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; padding: 16px 36px; cursor: pointer; transition: all 0.3s; }
+        .wizard-contact-form button:hover { background: var(--white); color: var(--black); border-color: var(--white); }
+        .wizard-success-icon { width: 64px; height: 64px; border: 2px solid var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 32px; animation: wizCheckIn 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.2s both; }
         .wizard-success-icon svg { width: 28px; height: 28px; stroke: var(--accent); }
         .nav-cta { border: 1px solid rgba(255,255,255,0.35); padding: 8px 18px; letter-spacing: 2px !important; }
         .nav-cta::after { display: none !important; }
         .nav-cta:hover { background: var(--white); color: var(--black) !important; }
         header.scrolled .nav-cta { border-color: var(--near-black); }
         header.scrolled .nav-cta:hover { background: var(--near-black); color: var(--white) !important; }
+        .wizard-dots { display: flex; gap: 8px; align-items: center; }
+        .wizard-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.15); transition: all 0.4s ease; }
+        .wizard-dot.active { background: var(--accent); width: 24px; border-radius: 4px; }
+        .wizard-dot.done { background: var(--accent); }
+        .wizard-summary-label { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 16px; }
 
         /* ANIMATIONS */
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeIn { to { opacity: 1; } }
         @keyframes scrollDown { 0% { top: -100%; } 100% { top: 100%; } }
+        @keyframes wizCheckIn { 0% { transform: scale(0); opacity: 0; } 60% { transform: scale(1.15); } 100% { transform: scale(1); opacity: 1; } }
 
         /* RESPONSIVE */
         @media (max-width: 1024px) {
@@ -1063,7 +1070,7 @@
         <div class="wizard-progress" id="wizProgress" style="width:20%"></div>
         <div class="wizard-nav">
             <button class="wizard-back hidden" id="wizBack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Atrás</button>
-            <span class="wizard-counter" id="wizCounter">Paso 1 de 5</span>
+            <div class="wizard-dots" id="wizDots"><span class="wizard-dot active"></span><span class="wizard-dot"></span><span class="wizard-dot"></span><span class="wizard-dot"></span><span class="wizard-dot"></span></div>
         </div>
 
         <!-- Paso 1: Tipo de proyecto -->
@@ -1313,10 +1320,11 @@
         }
         wizState.step = isSuccess ? 'success' : n;
         var wBack = document.getElementById('wizBack');
-        var wCounter = document.getElementById('wizCounter');
         var wProgress = document.getElementById('wizProgress');
-        if (isSuccess) { wBack.classList.add('hidden'); wCounter.textContent = ''; wProgress.style.width = '100%'; }
-        else { wBack.classList.toggle('hidden', n === 1); wCounter.textContent = 'Paso ' + n + ' de 5'; wProgress.style.width = (n / 5 * 100) + '%'; }
+        var dots = document.getElementById('wizDots');
+        if (dots) { var dd = dots.querySelectorAll('.wizard-dot'); dd.forEach(function(d, i) { d.className = 'wizard-dot'; if (isSuccess) d.classList.add('done'); else if (i === n - 1) d.classList.add('active'); else if (i < n - 1) d.classList.add('done'); }); dots.style.display = isSuccess ? 'none' : 'flex'; }
+        if (isSuccess) { wBack.classList.add('hidden'); wProgress.style.width = '100%'; }
+        else { wBack.classList.toggle('hidden', n === 1); wProgress.style.width = (n / 5 * 100) + '%'; }
     }
 
     function wizReset() {
@@ -1324,6 +1332,7 @@
         wizState.parcela = ''; wizState.ubicacion = ''; wizState.superficie = '';
         wizState.presupuesto = ''; wizState.plazo = '';
         document.querySelectorAll('.wizard-pill').forEach(function(p) { p.classList.remove('selected'); });
+        document.querySelectorAll('.wizard-card').forEach(function(c) { c.classList.remove('wiz-selected'); });
         var sup = document.getElementById('wizSuperficie'); if (sup) sup.value = '';
         var wf = document.getElementById('wizForm'); if (wf) wf.reset();
         wizGoTo(1, true);
@@ -1334,6 +1343,7 @@
         var content = document.getElementById('wizSummaryContent');
         if (wizState.estiloImg) img.src = wizState.estiloImg;
         content.innerHTML =
+            '<p class="wizard-summary-label">Tu proyecto</p>' +
             '<p><strong>Tipo:</strong> ' + (wizState.tipo || '—') + '</p>' +
             '<p><strong>Estilo:</strong> ' + (wizState.estilo || '—') + '</p>' +
             '<p><strong>Parcela:</strong> ' + (wizState.parcela || '—') + '</p>' +
@@ -1346,9 +1356,9 @@
     /* Wizard card clicks (steps 1 & 2 — auto-advance) */
     document.addEventListener('click', function(e) {
         var c1 = e.target.closest('[data-wiz-type]');
-        if (c1) { wizState.tipo = c1.dataset.wizType; wizGoTo(2); return; }
+        if (c1) { wizState.tipo = c1.dataset.wizType; c1.classList.add('wiz-selected'); setTimeout(function() { wizGoTo(2); }, 400); return; }
         var c2 = e.target.closest('[data-wiz-style]');
-        if (c2) { wizState.estilo = c2.dataset.wizStyle; wizState.estiloImg = c2.dataset.wizImg; wizGoTo(3); return; }
+        if (c2) { wizState.estilo = c2.dataset.wizStyle; wizState.estiloImg = c2.dataset.wizImg; c2.classList.add('wiz-selected'); setTimeout(function() { wizGoTo(3); }, 400); return; }
     });
 
     /* Pill selection */
